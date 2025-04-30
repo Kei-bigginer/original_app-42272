@@ -1,24 +1,102 @@
-# README
+## アプリケーション名
+day×day.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリケーション概要
+PicTweetは、会員制のSNS（ソーシャルネットワーキングサービス）アプリケーションです。
+brユーザーは簡単に画像と一緒に自分の考えや気持ちを「ツイート(呟く)」ことができます。
 
-Things you may want to cover:
+・「やることを1タップで登録」「その日のタスクが一目で見える」を実現する
+・メモ帳より少し便利で、習慣的に使えるようにする
+## URL
+https://◎◎◎◎.onrender.com
+br※デプロイ済みのURLを記載。デプロイが済んでいない場合は、デプロイが完了次第記載すること。
 
-* Ruby version
+## テスト用アカウント
+テスト用Email：test@test.com
+brテスト用Password：aaa123
+br※ログイン機能等を実装した場合は、ログインに必要な情報を記載。
+br※またBasic認証等を設けている場合は、そのID/Passも記載すること。
 
-* System dependencies
+## 利用方法
+1. URLにアクセスし、ヘッダー右上の「ログイン」ボタンからログイン画面に移動します。
+2. テスト用アカウントを使用しログインします。
+3. トップページのヘッダー右上の「投稿する」ボタンから新規呟きを投稿します。
+4. 投稿内容には画像1枚と文章を含めることができます。
+5. 他のユーザーの呟きを閲覧し、コメントを残すことも可能です。
+6. 投稿した呟きはトップページから編集・削除できます。
 
-* Configuration
+## アプリケーションを作成した背景
+PicTweetは、ユーザー同士が画像とテキストを使って簡単に感情やアイデアを共有できるプラットフォームです。
+br視覚的なコンテンツを通じてコミュニケーションを楽しむことを目指し、共通の趣味や関心を持つ人々がつながる場所を提供します。
 
-* Database creation
+## 実装した機能についての画像やGIFおよびその説明
+|ページ|説明|
+|---|------------------|
+|[トップページのGIF](URL_TO_GIF)|トップページ　　　　　　　　　　　　　　　　　　　　　　|
+|[ユーザー機能のGIF](URL_TO_GIF)|ユーザー機能br・新規登録br・ログイン/ログアウトbr・マイページ|
+|[ツイート機能のGIF](URL_TO_GIF)|ツイート（呟き）機能br・投稿機能br・一覧機能br・詳細機能br・編集・削除機能|
+|[コメント機能のGIF](URL_TO_GIF)|コメント機能|
+|[検索機能のGIF](URL_TO_GIF)|検索機能|
 
-* Database initialization
+## 実装予定の機能
+- リアルタイム通知機能
+- ユーザー同士のフォロー機能
+- お気に入りのツイートを保存する機能
+- 高度な検索フィルター機能
 
-* How to run the test suite
+## データベース設計
+ER図を添付。
+brAIで作る場合は、googleアカウントがあれば使用できる「Vercel v0」がオススメです。
+img width="307" alt="Image" src="https://github.com/user-attachments/assets/f780ed7f-e22c-495f-ad7d-5add7f75e45f" /
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## 画面遷移図
+画面遷移図を添付。
+brAIで作る場合は、googleアカウントがあれば使用できる「Vercel v0」がオススメです。
+img width="509" alt="Image" src="https://github.com/user-attachments/assets/086ceb82-5286-4340-b4ff-014d621e4d26" /
 
-* ...
+
+## 開発環境
+| 項目               | バージョン・サービス |
+|------------------|-----------------|
+| **言語**        | Ruby 3.2.0 |
+| **フレームワーク** | Ruby on Rails 7.1.5.1 |
+| **データベース**  | PostgreSQL 14.15（本番） / MySQL 8.0（開発） |
+| **フロントエンド** | HTML / CSS / JavaScript |
+| **認証機能**    | Devise |
+| **デプロイ環境** | Render |
+| **バージョン管理** | GitHub |
+
+## ローカルでの動作方法
+
+1. リポジトリをクローンします。
+```ruby
+  git clone https://github.com/GitHubのユーザー名/アプリ名
+2.必要なGemをインストールします。
+ 
+ruby
+  bundle install 
+  
+3.データベースを設定します。
+ 
+ruby
+  rails db:create
+  rails db:migrate
+  
+4.アプリケーションを起動します。
+ 
+ruby
+  rails s
+  
+5.ブラウザで http://localhost:3000 にアクセスします。
+## 工夫したポイント
+PicTweetは、誰でも簡単に使えるようにデザインされています。特に以下の点に工夫しました。
+br - 簡単な画像アップロード：投稿の際に画像をすぐにアップロードできます。
+br - 直感的なインターフェース：操作がしやすく、初めての人でもわかりやすいデザインにしています。
+## 今後の課題
+現在のアプリは基本的な機能を提供していますが、ユーザーのニーズに応えるために、以下の追加機能を検討しています。
+brコメント機能の編集・削除：投稿したコメントの内容を変更したり、削除できるようにします。
+br画像の複数アップロード：複数の画像を一度に投稿できる機能を追加します。
+## 制作時間
+200時間
+```
