@@ -1,0 +1,101 @@
+/* ===========================
+  📦 全ページ共通レイアウト用スタイル
+=========================== */
+
+/* 🌕 アプリ全体の背景と文字の基本設定 */
+body.layout-bg {
+  background-color: #fff7ec; /* メイン背景色：やわらかい薄オレンジ（安心感・やさしさ） */
+  font-family: 'Helvetica', 'Arial', sans-serif; /* 読みやすさ重視のフォント */
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧱 コンテンツ幅を中央寄せにする共通枠 */
+.container {
+  max-width: 1000px;       /* 画面幅が広くなりすぎないように制限 */
+  margin: 0 auto;          /* 中央寄せ */
+  padding: 10px 20px;      /* 内側の余白（上下10px, 左右20px） */
+}
+
+/* ===========================
+  🟢 ヘッダー・フッターの共通デザイン
+=========================== */
+
+/* 🌿 ヘッダーとフッターの背景に共通の優しい緑を設定 */
+.header, .footer {
+  background-color: #a8d5ba; /* 柔らかいミントグリーン（安心感・信頼感） */
+  color: #fff;               /* 白文字で可読性アップ */
+  padding: 15px 0;           /* 上下の余白で圧迫感なく */
+  text-align: center;
+}
+
+/* 🚩 ヘッダー内のタイトル、フッターの文の余白リセット */
+.header h1, .footer p {
+  margin: 0;
+}
+
+/* 🔗 ナビゲーション内のリンクスタイル */
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;            /* リンク間のスペース確保 */
+}
+
+/* ✨ ホバー時に下線でリンク感を強調 */
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* 🔲 メインコンテンツの上下余白 */
+.main {
+  padding: 40px 20px;
+}
+
+/* ===========================
+  📝 フォーム系の共通パーツデザイン
+=========================== */
+
+/* ✏️ 入力フォーム（メール・パスワード・ニックネームなど） */
+.form-input {
+  width: 100%;
+  max-width: 300px;          /* 中央の適度な幅 */
+  margin: 10px auto;         /* フォーム同士の間隔を保つ */
+  padding: 10px;
+  border-radius: 10px;       /* やわらかい印象にする角丸 */
+  border: none;
+  background-color: #111;    /* 黒背景で存在感を強調 */
+  color: #fff;               /* 白文字で可読性確保 */
+}
+
+/* 🔘 「登録」「ログイン」ボタンの共通スタイル */
+.form-submit {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #333;    /* ボタン背景：重厚なグレー */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* 📎 ログイン・新規登録などへのリンクボタン風スタイル */
+.form-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+/* 🧭 汎用：中央揃えしたいときに使うクラス */
+.text-center {
+  text-align: center;
+}
+
+/* 📋 フォーム全体を中央寄せ＋幅制限 */
+form {
+  max-width: 400px;     /* お好みで調整可 */
+  margin: 0 auto;       /* 中央に配置！ */
+}

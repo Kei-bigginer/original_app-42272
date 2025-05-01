@@ -1,16 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OriginalApp42272</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>day×day.</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_importmap_tags %>
+</head>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <body class="layout-bg">
 
-  <body>
-    <%= yield %>
+    <header class="header">
+      <div class="container">
+        <h1>day×day</h1>
+        <nav>
+          <%= link_to 'ホーム', root_path %> |
+          <% if user_signed_in? %>
+            <%= link_to 'マイページ', root_path %> |
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+          <% else %>
+            <%= link_to 'ログイン', new_user_session_path %> |
+            <%= link_to '新規登録', new_user_registration_path %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+     <!-- 👇 ここで main 全体を container で囲う -->
+  <main class="main">
+    <div class="container">
+      <%= yield %>
+    </div>
+  </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 day×day. All rights reserved.</p>
+      </div>
+    </footer>
+    
   </body>
 </html>
