@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OriginalApp42272</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>day×day</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="layout-bg">
+
+    <header class="header">
+      <div class="container">
+        <h1>day×day</h1>
+        <nav>
+          <%= link_to 'ホーム', root_path %> |
+          <%= link_to 'ログイン', new_user_session_path %> |
+          <%= link_to '新規登録', new_user_registration_path %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <%= yield %>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 day×day. All rights reserved.</p>
+      </div>
+    </footer>
+    
   </body>
 </html>

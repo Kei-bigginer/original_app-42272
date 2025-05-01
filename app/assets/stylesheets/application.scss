@@ -1,0 +1,40 @@
+/* --- 共通レイアウト --- */
+
+body.layout-bg {
+  background-color: #fff7ec; /* 薄いオレンジ系背景 */
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+/* --- ヘッダー・フッター共通の緑 --- */
+.header, .footer {
+  background-color: #a8d5ba; /* やさしい緑 */
+  color: #fff;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.header h1, .footer p {
+  margin: 0;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  padding: 40px 20px;
+}

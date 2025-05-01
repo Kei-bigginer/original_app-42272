@@ -1,29 +1,39 @@
-<h2>Sign up</h2>
+<h2 class="text-center">新規登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :nickname, "ニックネーム" %><br />
+    <%= f.text_field :nickname, class: "form-input" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password, "パスワード" %><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-input" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="field">
+    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :birthday, "誕生日" %><br />
+    <%= f.date_select :birthday, { start_year: 1950, end_year: Date.today.year, use_month_numbers: true, prompt: { year: '年', month: '月', day: '日' } }, class: "form-date" %>
+  </div>
+
+  <div class="actions text-center">
+    <%= f.submit "登録する", class: "form-submit" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="text-center">
+  <p>すでにアカウントをお持ちの方はこちら</p>
+  <%= link_to "ログインページへのリンク", new_session_path(resource_name), class: "form-link" %>
+</div>
