@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>day×day</title>
+    <title>day×day.</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
-  </head>
+  <%= javascript_importmap_tags %>
+</head>
 
   <body class="layout-bg">
 
@@ -15,8 +15,13 @@
         <h1>day×day</h1>
         <nav>
           <%= link_to 'ホーム', root_path %> |
-          <%= link_to 'ログイン', new_user_session_path %> |
-          <%= link_to '新規登録', new_user_registration_path %>
+          <% if user_signed_in? %>
+            <%= link_to 'マイページ', pairs_path %> |
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+          <% else %>
+            <%= link_to 'ログイン', new_user_session_path %> |
+            <%= link_to '新規登録', new_user_registration_path %>
+          <% end %>
         </nav>
       </div>
     </header>
