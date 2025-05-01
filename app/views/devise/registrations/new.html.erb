@@ -2,7 +2,15 @@
 <!-- 👇 ここに text-center を追加 -->
 <div class="text-center">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%# <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
+    
+    <!-- 👇 新規登録フォーム（Turboがsubmitを奪わないように明示的に無効化） -->
+<%= form_for(resource, 
+             as: resource_name, 
+             url: registration_path(resource_name), 
+             html: { data: { turbo: false } }) do |f| %>
+    
+    <!-- ✅ 登録時のエラーメッセージを表示 -->
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
