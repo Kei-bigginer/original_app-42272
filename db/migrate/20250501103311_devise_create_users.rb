@@ -7,6 +7,16 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
+      t.string  :nickname,      null: false                   # 表示名（親しみやすい呼び名）
+      t.integer :trust_points,  null: false, default: 0       # 信頼ポイント（投稿などで加算）
+      t.date    :birthday,      null: false                   # 誕生日（記念日通知などに活用予定）
+      t.integer :pair_id,       null: true                    # ペア未所属のユーザーも登録可能にする
+
+
+
+
+
+
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
