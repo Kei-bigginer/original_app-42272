@@ -1,0 +1,39 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認用）
+        nickname: ニックネーム
+        birthday: 誕生日
+    errors:
+      messages:
+        confirmation: "と一致しません"
+        blank: を入力してください
+        taken: はすでに存在します
+        too_short: は%{count}文字以上で入力してください
+        too_long: は%{count}文字以内で入力してください
+        invalid: は不正な値です
+
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      updated: "アカウント情報を変更しました。"
+      destroyed: "アカウントを削除しました。"
+    failure:
+      unauthenticated: "ログインしてください。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+
+  date:
+    order:
+      - :year
+      - :month
+      - :day
+        
+  errors:
+    messages:
+      not_saved: "%{count}件のエラーが発生したため、保存できませんでした。"
