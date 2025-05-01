@@ -1,26 +1,38 @@
-<h2>Log in</h2>
+<!-- ログイン画面タイトル -->
+<h2 class="text-center">ログイン</h2>
 
+<!-- 👇 ここに text-center を追加 -->
+<div class="text-center">
+
+
+<!-- ログインフォーム開始 -->
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <!-- バリデーションエラー表示 -->
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <!-- メールアドレス入力 -->
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
   </div>
 
+  <!-- パスワード入力 -->
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password, "パスワード" %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class: "form-input" %>
   </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <!-- ログインボタン -->
+  <div class="actions text-center">
+    <%= f.submit "ログイン", class: "form-submit" %>
   </div>
+
 <% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<!-- 新規登録ページへのリンク（ログインしていないユーザー用） -->
+<div class="text-center">
+  <p>アカウントをお持ちでない方はこちら</p>
+  <%= link_to "新規登録ページへのリンク", new_registration_path(resource_name), class: "form-link" %>
+</div>

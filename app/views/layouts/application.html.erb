@@ -21,9 +21,12 @@
       </div>
     </header>
 
-    <main class="main">
+     <!-- 👇 ここで main 全体を container で囲う -->
+  <main class="main">
+    <div class="container">
       <%= yield %>
-    </main>
+    </div>
+  </main>
 
     <footer class="footer">
       <div class="container">
