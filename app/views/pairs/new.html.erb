@@ -7,7 +7,7 @@
 
   <!-- 📝 ペア作成フォーム -->
   <h3>新しくペアを作成</h3>
-  <%= form_with model: @pair, local: true do |f| %>
+<%= form_with model: @pair, local: true, data: { turbo: false } do |f| %>
     <div>
       <!-- 記念日入力（任意） -->
       <%= f.label :anniversary, "記念日（任意）" %><br>
@@ -55,7 +55,14 @@
 <% else %>
   <!-- ✅ すでにペアに参加しているユーザー向け表示 -->
   <p>あなたはすでにペアに参加しています。</p>
-  <p>あなたの招待コード：<strong><%= current_user.pair.invite_code %></strong></p>
+  <p>あなたの招待コード：</p>
+  <p>
+    <span id="invite-code" style="font-size: 24px; font-weight: bold;"><%= current_user.pair.invite_code %></span>
+  </p>
+
+  <!-- ✅ コピー機能 -->
+  <button id="copy-btn" type="button">コードをコピーする</button>
+  <p id="copy-message" style="color: green; display: none;">コピーしました！</p>
 <% end %>
 
 <!-- 📝 フラッシュメッセージ表示 -->
