@@ -1,13 +1,67 @@
 <!-- app/views/pairs/new.html.erb -->
-<h2>ペア作成</h2>
 
-<%= form_with model: @pair, local: true do |f| %>
-  <div>
-    <%= f.label :anniversary, "記念日（任意）" %><br>
-    <%= f.date_field :anniversary %>
-  </div>
+<h2>ペア作成・参加</h2>
 
-  <div>
-    <%= f.submit "ペアを作成する" %>
-  </div>
+<% if current_user.pair.nil? %>
+  <!-- ✅ まだペアに所属していないユーザー向け -->
+
+  <!-- 📝 ペア作成フォーム -->
+  <h3>新しくペアを作成</h3>
+  <%= form_with model: @pair, local: true do |f| %>
+    <div>
+      <!-- 記念日入力（任意） -->
+      <%= f.label :anniversary, "記念日（任意）" %><br>
+      <%= f.date_field :anniversary %>
+    </div>
+    <div>
+      <!-- 作成ボタン -->
+      <%= f.submit "ペアを作成する" %>
+    </div>
+  <% end %>
+
+  <!-- 📝 ペア作成に成功した場合に、招待コードをその場で表示 -->
+  <% if @pair.persisted? %>
+    <div style="margin-top: 20px; padding: 10px; background: #f0fff0; border: 1px solid #ccc;">
+      <strong>✅ ペアが作成されました！</strong><br>
+      この招待コードを相手に教えてください：<br>
+      <!-- 生成された招待コードを大きく表示 -->
+      <span id="invite-code" style="font-size: 24px;"><%= @pair.invite_code %></span>
+    
+    <!-- ✅ コピー機能用ボタン -->
+    <div style="margin-top: 10px;">
+      <button id="copy-btn" type="button">コードをコピーする</button>
+      <p id="copy-message" style="color: green; display: none;">コピーしました！</p>
+    </div>
+    
+    </div>
+  <% end %>
+
+  <hr>
+
+  <!-- 📝 すでに相手がペアを作っている場合はこちらから参加 -->
+  <h3>または、招待コードで参加する</h3>
+  <%= form_with url: join_pairs_path, method: :post, local: true do %>
+    <div>
+      <!-- 招待コード入力欄 -->
+      <%= label_tag :invite_code, "招待コード" %><br>
+      <%= text_field_tag :invite_code %>
+    </div>
+    <div>
+      <!-- 参加ボタン -->
+      <%= submit_tag "参加する" %>
+    </div>
+  <% end %>
+
+<% else %>
+  <!-- ✅ すでにペアに参加しているユーザー向け表示 -->
+  <p>あなたはすでにペアに参加しています。</p>
+  <p>あなたの招待コード：<strong><%= current_user.pair.invite_code %></strong></p>
+<% end %>
+
+<!-- 📝 フラッシュメッセージ表示 -->
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+<% if flash[:notice] %>
+  <p style="color: green;"><%= flash[:notice] %></p>
 <% end %>
