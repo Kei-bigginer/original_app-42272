@@ -5,9 +5,17 @@
 <% if current_user.pair.nil? %>
   <!-- ✅ まだペアに所属していないユーザー向け -->
 
+
   <!-- 📝 ペア作成フォーム -->
   <h3>新しくペアを作成</h3>
-<%= form_with model: @pair, local: true, data: { turbo: false } do |f| %>
+  <%= form_with model: @pair, local: true, data: { turbo: false } do |f| %>
+      <!-- ペア作成フォームの上に注意文 -->
+  <p style="color: red; font-weight: bold;">
+    ※すでに相手がペアを作成している場合は、<br>
+    「ペアに参加する」から招待コードを入力してください！<br>
+    <span style="color: green;">（ペアは1組だけ作成されます）</span>
+  </p>
+    
     <div>
       <!-- 記念日入力（任意） -->
       <%= f.label :anniversary, "記念日（任意）" %><br>
@@ -15,7 +23,7 @@
     </div>
     <div>
       <!-- 作成ボタン -->
-      <%= f.submit "ペアを作成する" %>
+      <%= f.submit "ペアを作成する", data: { confirm: "本当にペアを新しく作成しますか？すでに相手が作成している場合は参加してください。" } %>
     </div>
   <% end %>
 

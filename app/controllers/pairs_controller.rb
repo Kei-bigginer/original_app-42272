@@ -1,7 +1,6 @@
 class PairsController < ApplicationController
   before_action :require_full_pair, only: :index
 
-  
   def index
   # トップページ表示処理（仮でもOK）
   end
@@ -13,6 +12,12 @@ class PairsController < ApplicationController
   end
 
   def create
+     # すでにペアに所属してるなら作成NG
+  if current_user.pair.present?
+    flash[:alert] = "すでにペアに参加済みです。ペア作成はできません。"
+    redirect_to new_pair_path and return
+  end
+
     @pair = Pair.new(pair_params) 
     if @pair.save
       # 作成されたペアにcurrent_userを紐づける（1人目の参加者になる）
