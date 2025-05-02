@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+           # ユーザーは1つのペアに所属（まだ所属してなくてもOKなので optional: true）
+         belongs_to :pair, optional: true
 
          validates :nickname, presence: true, length: { maximum: 20 }
          validates :birthday, presence: true
