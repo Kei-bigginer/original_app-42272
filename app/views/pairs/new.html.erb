@@ -1,0 +1,13 @@
+<!-- app/views/pairs/new.html.erb -->
+<h2>ペア作成</h2>
+
+<%= form_with model: @pair, local: true do |f| %>
+  <div>
+    <%= f.label :anniversary, "記念日（任意）" %><br>
+    <%= f.date_field :anniversary %>
+  </div>
+
+  <div>
+    <%= f.submit "ペアを作成する" %>
+  </div>
+<% end %>

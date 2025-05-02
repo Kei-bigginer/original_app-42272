@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 
+    # Deviseログイン後の遷移先
+    def after_sign_in_path_for(resource)
+      resource.pair.present? ? root_path : new_pair_path # ← 任意のパスに変更できる！
+    end
+
+
+
+
   private
 
     # 🔐 Basic認証：外部から呼ばれない内部処理
