@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_02_025738) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_02_160504) do
+  create_table "notes", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "content", size: :tiny, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "pairs", charset: "utf8mb3", force: :cascade do |t|
     t.date "anniversary"
     t.string "invite_code", null: false
@@ -35,4 +43,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_025738) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notes", "users"
 end
