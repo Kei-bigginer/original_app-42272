@@ -1,7 +1,56 @@
-<h1>Hello from day×day. 👋</h1>
-<p>このページがトップです！</p>
-<!-- views/pairs/index.html.erb などに -->
-<p>ENV['BASIC_AUTH_USER']: <%= ENV['BASIC_AUTH_USER'] %></p>
-<p>ENV['BASIC_AUTH_PASSWORD']: <%= ENV['BASIC_AUTH_PASSWORD'] %></p>
+<!-- app/views/pairs/index.html.erb -->
 
+<div class="container py-4">
+  <!-- ヘッダー部分 -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2><%= current_user.nickname %> 💠 信頼マーク</h2>
+    </div>
+    <div>
+      <%= link_to "プロフィール編集", "#", class: "btn btn-outline-secondary btn-sm" %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
+    </div>
+  </div>
 
+  <!-- 信頼ポイント（Chart.js設置予定） -->
+  <div class="mb-4">
+    <h5>信頼ポイント</h5>
+    <div style="height: 200px; background-color: #f8f9fa; text-align: center; line-height: 200px;">
+      ★ グラフ表示予定（Chart.js）★
+    </div>
+  </div>
+
+  <!-- 今日のひとこと -->
+  <div class="mb-3">
+    <%= link_to "今日のひとことを投稿する", "#", class: "btn btn-primary w-100" %>
+  </div>
+
+  <!-- 投稿表示欄 -->
+  <div class="mb-4">
+    <h5>最近の投稿（最新4件）</h5>
+    <ul class="list-group">
+      <% 4.times do |i| %>
+        <li class="list-group-item">投稿サンプル <%= i + 1 %></li>
+      <% end %>
+    </ul>
+    <div class="mt-2 text-end">
+      <%= link_to "もっと見る", "#", class: "btn btn-link" %>
+    </div>
+  </div>
+
+  <!-- 自動スクロール画面 -->
+  <div class="mb-4" style="height: 150px; background-color: #e9ecef; text-align: center; line-height: 150px;">
+    ★ 画像スライダー予定（Swiper.js）★
+  </div>
+
+  <!-- 日常部屋＆デート記録ボタン -->
+  <div class="mb-3 d-grid gap-2">
+    <%= link_to "日常部屋を見る", "#", class: "btn btn-outline-primary" %>
+    <%= link_to "デート記録を見る", "#", class: "btn btn-outline-secondary" %>
+  </div>
+
+  <!-- フッター -->
+  <footer class="text-center mt-5 text-muted">
+    <small>今は仮だけど、ここにナビ（ホーム・思い出・設定）など置いてSPA化の土台にしてもOK</small>
+  </footer>
+</div>
