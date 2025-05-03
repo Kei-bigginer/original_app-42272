@@ -1,7 +1,7 @@
-<!-- app/views/pairs/index.html.erb -->
-
 <div class="container py-4">
-  <!-- ヘッダー部分 -->
+  <!-- ============================== -->
+  <!-- 🧑‍🤝‍🧑 ヘッダー部分（ユーザー名・メニュー） -->
+  <!-- ============================== -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
       <h2><%= current_user.nickname %> 💠 信頼マーク</h2>
@@ -12,44 +12,77 @@
     </div>
   </div>
 
-  <!-- 信頼ポイント（Chart.js設置予定） -->
+  <!-- ============================== -->
+  <!-- 🌟 信頼ポイント表示 -->
+  <!-- ============================== -->
   <div class="mb-4">
     <h5>信頼ポイント</h5>
-    <div style="height: 200px; background-color: #f8f9fa; text-align: center; line-height: 200px;">
-      ★ グラフ表示予定（Chart.js）★
+    <div class="border rounded p-4 text-center bg-light">
+      <h1><%= @trust_points %> pt</h1>
+      <p class="text-muted small mb-0">※ 毎日の投稿で1ポイントずつ増えていきます</p>
     </div>
   </div>
 
-  <!-- 今日のひとこと -->
+  <!-- ============================== -->
+  <!-- ✍️ 投稿ボタン（ひとことページへ） -->
+  <!-- ============================== -->
   <div class="mb-3">
     <%= link_to "今日のひとことを投稿する", notes_path, class: "btn btn-primary w-100" %>
   </div>
 
-  <!-- 投稿表示欄 -->
-  <div class="mb-4">
-    <h5>最近の投稿（最新4件）</h5>
-    <ul class="list-group">
-      <% 4.times do |i| %>
-        <li class="list-group-item">投稿サンプル <%= i + 1 %></li>
+ <!-- ============================== -->
+<!-- 🕒 最近の投稿（あなた） -->
+<!-- ============================== -->
+<div class="mb-4">
+  <h5>最近の投稿（あなた）</h5>
+
+  <% if @my_recent_notes.any? %>
+    <ul class="list-group mb-3">
+      <% @my_recent_notes.each do |note| %>
+        <li class="list-group-item">
+          💬 <strong><%= note.theme %></strong>：「<%= note.content %>」
+          <div class="text-muted small">📅 <%= note.created_at.strftime("%Y/%m/%d %H:%M") %></div>
+        </li>
       <% end %>
     </ul>
-    <div class="mt-2 text-end">
-      <%= link_to "もっと見る", "#", class: "btn btn-link" %>
-    </div>
-  </div>
+  <% else %>
+    <p class="text-muted">まだ投稿がありません。</p>
+  <% end %>
 
-  <!-- 自動スクロール画面 -->
+  <h5>最近の投稿（パートナー）</h5>
+
+  <% if @partner_recent_notes.any? %>
+    <ul class="list-group">
+      <% @partner_recent_notes.each do |note| %>
+        <li class="list-group-item">
+          💬 <strong><%= note.theme %></strong>：「<%= note.content %>」
+          <div class="text-muted small">📅 <%= note.created_at.strftime("%Y/%m/%d %H:%M") %></div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted">パートナーの投稿はまだありません。</p>
+  <% end %>
+</div>
+
+  <!-- ============================== -->
+  <!-- 📸 画像スライダー予定（Swiper.js） -->
+  <!-- ============================== -->
   <div class="mb-4" style="height: 150px; background-color: #e9ecef; text-align: center; line-height: 150px;">
     ★ 画像スライダー予定（Swiper.js）★
   </div>
 
-  <!-- 日常部屋＆デート記録ボタン -->
+  <!-- ============================== -->
+  <!-- 🏠 日常部屋・デート記録へのリンク -->
+  <!-- ============================== -->
   <div class="mb-3 d-grid gap-2">
     <%= link_to "日常部屋を見る", "#", class: "btn btn-outline-primary" %>
     <%= link_to "デート記録を見る", "#", class: "btn btn-outline-secondary" %>
   </div>
 
-  <!-- フッター -->
+  <!-- ============================== -->
+  <!-- 🔻 フッター（SPA化予定） -->
+  <!-- ============================== -->
   <footer class="text-center mt-5 text-muted">
     <small>今は仮だけど、ここにナビ（ホーム・思い出・設定）など置いてSPA化の土台にしてもOK</small>
   </footer>

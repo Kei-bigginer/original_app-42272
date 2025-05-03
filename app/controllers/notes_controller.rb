@@ -1,41 +1,44 @@
 class NotesController < ApplicationController
   before_action :require_pair!
 
-
-
   def index
-    # 💬 投稿フォーム用の空インスタンスを用意
-    # フォームで使用するため（form_with model: @note）
-    @note = Note.new
-    # 📥 ペア内の投稿一覧を取得（最新順）
-    # ※ current_user.pair が nil（まだペア未作成）の場合は空配列で対応
-    if current_user.pair
-      # ペアに所属するユーザー2人のNoteをまとめて取得し、作成日で新しい順に並べる
-      @notes = current_user.pair.users
-                  .includes(:notes)                       # N+1問題を防ぐため事前にNoteも一緒に取得
-                  .map(&:notes)                           # 各ユーザーの投稿（Note）を配列にする
-                  .flatten                                # [[note1, note2], [note3]] → [note1, note2, note3]
-                  .sort_by(&:created_at).reverse          # 作成日時が新しい順に並び替え
-    else
-      @notes = []  # ペアが存在しない場合は空配列
-    end
-  
-    # ================================
-    # 🎲 毎日のランダムテーマを表示（例：「今日のありがとう」など）
-    # ※ 今後は時間帯・季節などに応じて出し分け予定
-    # ================================
+    @note = Note.new  # 投稿フォーム用の空インスタンス
+
+    @notes = current_user.pair.users
+                  .includes(:notes)            # N+1対策：Noteを事前に読み込み
+                  .map(&:notes)                # 各ユーザーの投稿配列を取得
+                  .flatten                     # ネスト配列をフラットに変換
+                  .sort_by(&:created_at)       # 作成日時で昇順にソート
+                  .reverse                     # 新しい順に並べ替え（全件表示）
+
     @theme = ["今日のありがとう", "相手に伝えたいこと", "今日うれしかったこと", "がんばったこと"].sample
+    # ランダムで今日のテーマを1つ表示
   end
-  
 
   def create
+    # 制限は挙動確認のためコメントアウト
+    # if posted_today?
+    #   redirect_to notes_path, alert: "今日はすでに投稿済みです"
+    #   return
+    # end
+
     @note = current_user.notes.build(note_params)
+    @note.theme = params[:note][:theme] || session[:today_theme] || "テーマ未設定"
+    # 💡 フォームから送られてきたテーマを保存（未送信時はセッションor予備）
 
     if @note.save
-      redirect_to notes_path, notice: 'ひとことを投稿しました！'
+      current_user.increment!(:trust_points)  # ✅ 信頼ポイント +1
+      redirect_to notes_path, notice: 'ひとことを投稿しました！（信頼ポイント+1）'
     else
-      @notes = current_user.pair ? current_user.pair.users.includes(:notes).map(&:notes).flatten.sort_by(&:created_at).reverse : []
-      render :index, alert: '投稿に失敗しました'
+      @notes = current_user.pair.users
+                   .includes(:notes)
+                   .map(&:notes)
+                   .flatten
+                   .sort_by(&:created_at)
+                   .reverse
+
+      flash.now[:alert] = '投稿に失敗しました'
+      render :index
     end
   end
 
@@ -43,6 +46,10 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:content)
+    # ※ themeはフォームで個別に代入するためpermitしない
   end
 
+  def posted_today?
+    current_user.notes.where(created_at: Time.zone.now.all_day).exists?
+  end
 end
