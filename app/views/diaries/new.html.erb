@@ -1,0 +1,29 @@
+<!-- =============================== -->
+<!-- 📝 日常投稿フォーム -->
+<!-- =============================== -->
+
+<h2>写真を投稿する</h2>
+
+<!-- ⚠️ バリデーションエラー表示（画像がないときのみ） -->
+<% if @diary.errors[:images].present? %>
+  <div style="color: red; font-weight: bold;">
+    <%= @diary.errors[:images].first %> <!-- 最初の1件だけ表示 -->
+  </div>
+<% end %>
+
+<!-- ⚠️ 注意書き：最大5枚まで -->
+<p class="text-muted">※最大5枚まで選択できます</p>
+
+<!-- 📸 投稿フォーム本体 -->
+<%= form_with model: @diary, local: true, html: { multipart: true } do |f| %>
+  <div style="margin-top: 12px;">
+    <!-- 🖼️ ファイル選択（複数可） -->
+    <%= f.label :images, "写真を選択（1枚以上、複数可）" %><br>
+    <%= f.file_field :images, multiple: true, accept: "image/*" %>
+  </div>
+
+  <!-- 🚀 投稿ボタン -->
+  <div style="margin-top: 12px;">
+    <%= f.submit "投稿する" %>
+  </div>
+<% end %>

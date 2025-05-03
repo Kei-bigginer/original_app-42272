@@ -8,7 +8,8 @@ class User < ApplicationRecord
          belongs_to :pair, optional: true
          # 🗒 ひとこと投稿（Note）を複数持つ
          has_many :notes, dependent: :destroy
-         
+         has_many :diaries, dependent: :destroy
+
          validates :nickname, presence: true, length: { maximum: 20 }
          validates :birthday, presence: true
         #  validates :trust_points, presence: true, 

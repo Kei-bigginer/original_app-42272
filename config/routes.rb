@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :notes, only: [:index, :new, :create ]   # 🗒 Note機能（投稿・表示だけでOK）
 
 
-
-
+  resources :diaries, only: [:index, :new, :create ]
   
 end
