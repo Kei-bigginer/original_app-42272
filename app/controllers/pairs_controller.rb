@@ -2,8 +2,20 @@ class PairsController < ApplicationController
   before_action :require_full_pair, only: :index
 
   def index
-  # トップページ表示処理（仮でもOK）
+    @note = Note.new  # 投稿フォーム用インスタンス
+    @trust_points = current_user.trust_points  # 自分の信頼ポイント
+    # 自分の直近3投稿
+    @my_recent_notes = current_user.notes.order(created_at: :desc).limit(3)
+    # 相手ユーザーを取得（ペアの中で current_user じゃない方）
+    partner = current_user.pair.users.where.not(id: current_user.id).first
+    # 相手の直近3投稿（相手が存在する場合のみ）
+    @partner_recent_notes = partner.present? ? partner.notes.order(created_at: :desc).limit(3) : []
+  
+    # ↓ これを入れてなかったらエラーになる
+  @recent_notes = (@my_recent_notes + @partner_recent_notes).sort_by(&:created_at).reverse.first(3)
+
   end
+  
 
 
   def new
