@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 // ✅ JavaScriptモジュールの読み込み（自作ファイルをインポート）
 import "./copy_invite_code"
+import "@rails/ujs"         // ✅ Importmap用に読み込む
+
+Rails.start()               // ✅ Rails UJSを有効化する
