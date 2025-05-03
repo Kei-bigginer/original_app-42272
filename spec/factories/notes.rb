@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :note do
-    content { "MyText" }
-    user { nil }
-    pair { nil }
+    content { "これはテスト用のひとこと投稿です。" }
+    theme { "今日のありがとう" }
+    association :user  # ユーザーと紐づけ
   end
 end
