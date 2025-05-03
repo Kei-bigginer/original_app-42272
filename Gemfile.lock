@@ -125,6 +125,9 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -148,6 +151,9 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    mini_magick (5.2.0)
+      benchmark
+      logger
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -241,6 +247,9 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.13.3)
+    ruby-vips (2.2.3)
+      ffi (~> 1.12)
+      logger
     rubyzip (2.4.1)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -301,8 +310,10 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  mini_magick
   mysql2 (~> 0.5)
   pg
   puma (>= 5.0)
