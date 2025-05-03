@@ -9,6 +9,17 @@ class ApplicationController < ActionController::Base
       resource.pair.present? ? root_path : new_pair_path # ← 任意のパスに変更できる！
     end
 
+# ==================================
+  # 🛡️ ペア未所属ガード（共通化しておく）
+  # 機能ページなどで「ペアがないと使えない」場合に使用
+  # 各Controllerで before_action :require_pair! で使える
+  # ==================================
+  def require_pair!
+    unless current_user.pair
+      redirect_to new_pair_path, alert: "ペアを作成または参加してください"
+    end
+  end
+
 
 
 
