@@ -1,0 +1,23 @@
+<!-- ============================== -->
+<!-- 🧾 Moment表示用テンプレート -->
+<!-- ============================== -->
+
+<div class="p-4 border rounded shadow-sm bg-white">
+  <!-- 📅 日付 -->
+  <p><strong>日付:</strong> <%= moment.date.strftime("%Y年%m月%d日") %></p>
+
+  <!-- ✏️ メモ -->
+  <p><strong>メモ:</strong> <%= moment.memo %></p>
+
+  <!-- 🖼️ 画像 -->
+  <% if moment.image.attached? %>
+    <div class="mt-2">
+      <%= image_tag moment.image, class: "w-full max-w-xs rounded" %>
+    </div>
+  <% end %>
+
+  <!-- 📍 場所 -->
+  <% if moment.location.present? %>
+    <p class="mt-2 text-sm text-gray-600"><strong>場所:</strong> <%= moment.location %></p>
+  <% end %>
+</div>

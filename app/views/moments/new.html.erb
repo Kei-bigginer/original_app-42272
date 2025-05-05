@@ -1,2 +1,47 @@
-<h1>Moments#new</h1>
-<p>Find me in app/views/moments/new.html.erb</p>
+<!-- ============================== -->
+<!-- 📝 デート記録 新規投稿フォーム -->
+<!-- ============================== -->
+
+<h2 class="text-xl font-bold mb-4">📅 デート記録を投稿する</h2>
+
+<!-- ⚠️ バリデーションエラーの表示（重要！） -->
+<% if @moment.errors.any? %>
+  <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+    <p><strong>以下の項目を確認してください：</strong></p>
+    <ul>
+      <% @moment.errors.full_messages.each do |msg| %>
+        <li>・<%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<!-- 🔁 投稿フォーム -->
+<%= form_with model: @moment, local: true, html: { multipart: true } do |f| %>
+  <!-- 📅 デート日 -->
+  <div class="mb-3">
+    <%= f.label :date, "デート日", class: "block font-bold mb-1" %>
+    <%= f.date_field :date, class: "border p-2 w-full rounded" %>
+  </div>
+
+  <!-- ✏️ メモ -->
+  <div class="mb-3">
+    <%= f.label :memo, "メモ", class: "block font-bold mb-1" %>
+    <%= f.text_area :memo, rows: 3, class: "border p-2 w-full rounded" %>
+  </div>
+
+  <!-- 🖼 画像 -->
+  <div class="mb-3">
+    <%= f.label :image, "画像", class: "block font-bold mb-1" %>
+    <%= f.file_field :image, class: "w-full" %>
+  </div>
+
+  <!-- 📍 場所（任意） -->
+  <div class="mb-4">
+    <%= f.label :location, "場所（任意）", class: "block font-bold mb-1" %>
+    <%= f.text_field :location, class: "border p-2 w-full rounded", placeholder: "例：代官山のカフェ" %>
+  </div>
+
+  <!-- ✅ 投稿ボタン -->
+  <%= f.submit "記録する", class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
+<% end %>
