@@ -9,6 +9,7 @@ class User < ApplicationRecord
          # 🗒 ひとこと投稿（Note）を複数持つ
          has_many :notes, dependent: :destroy
          has_many :diaries, dependent: :destroy
+         has_many :moments, dependent: :destroy   # 🙋 ユーザーが投稿したMomentたち
 
          validates :nickname, presence: true, length: { maximum: 20 }
          validates :birthday, presence: true
