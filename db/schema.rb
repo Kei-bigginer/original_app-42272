@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_03_152318) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_05_030257) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,6 +44,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_03_152318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_diaries_on_user_id"
+  end
+
+  create_table "moments", charset: "utf8mb3", force: :cascade do |t|
+    t.date "date", null: false
+    t.text "memo", null: false
+    t.string "location"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_moments_on_user_id"
   end
 
   create_table "notes", charset: "utf8mb3", force: :cascade do |t|
@@ -82,5 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_03_152318) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "diaries", "users"
+  add_foreign_key "moments", "users"
   add_foreign_key "notes", "users"
 end
