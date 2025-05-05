@@ -1,6 +1,6 @@
 class DiariesController < ApplicationController
    before_action :authenticate_user!  # 🔐 ログインユーザーでなければアクセス不可
-   before_action :require_pair!    # 🛡️ ペア未所属ならリダイレクト（ApplicationControllerで定義済）
+   before_action :require_full_pair!
 
    # 📸 日常投稿一覧表示（自分のペアの投稿のみ）
    def index

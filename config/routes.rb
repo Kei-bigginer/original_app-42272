@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
 
   resources :diaries, only: [:index, :new, :create ]
-  
+  resources :moments, only: [:index, :new, :create ]
+
 end

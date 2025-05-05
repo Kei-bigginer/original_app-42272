@@ -1,5 +1,5 @@
 class PairsController < ApplicationController
-  before_action :require_full_pair, only: :index
+  before_action :require_full_pair!, only: :index
 
   def index
     @note = Note.new  # 投稿フォーム用インスタンス
@@ -70,13 +70,6 @@ class PairsController < ApplicationController
     params.require(:pair).permit(:anniversary)
   end
 
-    # ✅ ペア未所属 or 2人未満のときはペア作成ページにリダイレクト
-  def require_full_pair
-    if current_user.pair.nil? || current_user.pair.users.count < 2
-      flash[:alert] = "ふたりのペアが揃うまでトップページには進めません"
-      redirect_to new_pair_path
-    end
-  end
-
+  
 
 end
