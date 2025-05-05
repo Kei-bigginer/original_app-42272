@@ -14,7 +14,12 @@ module OriginalApp42272
      # ✅ 日本語をデフォルトロケールに設定
      config.i18n.default_locale = :ja
 
-     config.active_storage.variant_processor = :mini_magick
+     # ✅ タイムゾーンを東京に設定（日本時間で表示・保存）
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+     
+    # ✅ ActiveStorageで画像処理にmini_magickを使用
+    config.active_storage.variant_processor = :mini_magick
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

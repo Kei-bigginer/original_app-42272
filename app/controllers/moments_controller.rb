@@ -1,4 +1,6 @@
 class MomentsController < ApplicationController
+  before_action :authenticate_user!   # 🛡️ アクセス制限（ログインしてないと使えない）
+  before_action :require_full_pair!
 
   # 📄 一覧表示（自分とペアの記録）
   def index

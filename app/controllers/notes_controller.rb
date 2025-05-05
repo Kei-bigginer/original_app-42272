@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :require_pair!
+  before_action :require_full_pair!
 
   def index
     @note = Note.new  # 投稿フォーム用の空インスタンス
