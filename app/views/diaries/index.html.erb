@@ -1,0 +1,20 @@
+<!-- =============================== -->
+<!-- 📸 日常投稿 一覧ページ -->
+<!-- =============================== -->
+
+<h2>日常の写真たち</h2>
+
+<!-- 📎 投稿ページへのリンク -->
+<%= link_to "＋ 写真を投稿する", new_diary_path, class: "btn btn-outline-primary mb-3" %>
+
+<!-- 📷 投稿一覧：自分のペアのユーザー投稿だけを表示 -->
+<div class="diary-gallery">
+  <% @diaries.each do |diary| %>
+    <div class="diary-item">
+      <!-- 💡 複数画像をループ表示 -->
+      <% diary.images.each do |image| %>
+        <%= image_tag image.variant(resize_to_limit: [300, 300]), class: "img-thumbnail mb-2" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
