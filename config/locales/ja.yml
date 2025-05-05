@@ -7,6 +7,13 @@ ja:
         password_confirmation: パスワード（確認用）
         nickname: ニックネーム
         birthday: 誕生日
+
+      # ✅ Momentモデルの各属性（自然な日本語に）
+      moment:
+        date: 日付          # 📅 デート日（必須）
+        memo: コメント       # ✏️ メモ（短文OK）
+        image: 画像         # 🖼️ 添付画像
+
     errors:
       messages:
         confirmation: "と一致しません"
@@ -16,24 +23,38 @@ ja:
         too_long: は%{count}文字以内で入力してください
         invalid: は不正な値です
 
+      # ✅ Momentモデル専用のエラー文（属性ごとに細かくカスタマイズ）
+      models:
+        moment:
+          attributes:
+            date:
+              blank: "を入力してください"
+            memo:
+              blank: "を入力してください"
+            image:
+              blank: "を添付してください"
+
+  # ✅ Devise関連メッセージ
   devise:
     sessions:
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
     registrations:
       signed_up: "アカウント登録が完了しました。"
-      updated: "アカウント情報を変更しました。"
+      updated: "アカウント情報を変更しました."
       destroyed: "アカウントを削除しました。"
     failure:
       unauthenticated: "ログインしてください。"
       invalid: "メールアドレスまたはパスワードが正しくありません。"
 
+  # ✅ 日付入力の順番（年→月→日）
   date:
     order:
       - :year
       - :month
       - :day
-        
+
+  # ✅ フォーム全体のエラー表示用
   errors:
     messages:
       not_saved: "%{count}件のエラーが発生したため、保存できませんでした。"
