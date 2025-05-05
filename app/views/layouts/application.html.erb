@@ -5,14 +5,24 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_importmap_tags %>
-</head>
+    <%= javascript_importmap_tags %>
+
+    <!-- ✅ Bootstrap CSS（CDN） -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ✅ Swiper CSS（CDN） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  </head>
 
   <body class="layout-bg">
 
+    <!-- 🚩 ヘッダー：アプリ名＋ナビ -->
     <header class="header">
       <div class="container">
-        <h1>day×day</h1>
+        <!-- 🌸 アプリロゴ（タイトル） -->
+        <h1>day×day.</h1>
+
+        <!-- 🧭 ナビゲーション（左上のリンク類） -->
         <nav>
           <%= link_to 'ホーム', root_path %> |
           <% if user_signed_in? %>
@@ -23,21 +33,71 @@
             <%= link_to '新規登録', new_user_registration_path %>
           <% end %>
         </nav>
+
+        <!-- ✨ 機能アイコン（ひとこと・日常・デート） -->
+        <% if user_signed_in? && current_user.pair&.users&.count == 2 %>
+          <div class="feature-icons mt-2">
+            <%= link_to notes_path, class: "icon-link" do %>
+              📝
+            <% end %>
+            <%= link_to diaries_path, class: "icon-link" do %>
+              📷
+            <% end %>
+            <%= link_to moments_path, class: "icon-link" do %>
+              💑
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </header>
 
-     <!-- 👇 ここで main 全体を container で囲う -->
-  <main class="main">
-    <div class="container">
-      <%= yield %>
-    </div>
-  </main>
+    <!-- 📦 メインコンテンツ表示領域 -->
+    <main class="main">
+      <div class="container">
+        <%= yield %> <!-- 各ページの中身がここに入る -->
+      </div>
+    </main>
 
+    <!-- 📌 フッター（共通） -->
     <footer class="footer">
       <div class="container">
         <p>&copy; 2025 day×day. All rights reserved.</p>
       </div>
     </footer>
+
+    <!-- ✅ Bootstrap JS（CDN） -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ✅ Swiper JS（CDN） -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
+    <!-- ✅ Swiper初期化スクリプト（中心強調＋自動スクロール） -->
+    <script>
+      // 📦 ページ読み込み後にSwiperを初期化
+      document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper(".mySwiper", {
+          loop: true,                       // 🔁 無限ループ再生
+          slidesPerView: 3,                // 🖼 一度に表示する画像枚数
+          spaceBetween: 10,                // 🧱 スライド間の余白
+          centeredSlides: true,            // 🎯 中央寄せレイアウト
+          autoplay: {
+            delay: 2000,                   // ⏱ 自動スクロールの間隔（2秒）
+            disableOnInteraction: false    // 🖱 操作後も自動再生は止めない
+          },
+          on: {
+            // 🌀 スライド切り替え時に中心以外を半透明にする処理
+            slideChangeTransitionEnd: function () {
+              const slides = document.querySelectorAll('.swiper-slide');
+              slides.forEach((slide, index) => {
+                slide.style.opacity = (index === this.realIndex + 1) ? '1' : '0.5'; // 中央だけ不透明
+              });
+            }
+          }
+        });
+      });
+    </script>
+
+  
+  
   </body>
 </html>
