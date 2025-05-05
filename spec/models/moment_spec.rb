@@ -28,6 +28,13 @@ RSpec.describe Moment, type: :model do
         moment.valid?
         expect(moment.errors.full_messages).to include("画像 を添付してください")
       end
+
+      it '未来日では保存できない' do
+        moment.date = Date.today + 1
+        moment.valid?
+        expect(moment.errors.full_messages).to include("日付 は今日以前の日付を選んでください")
+      end
+      
     end
   end
 end
