@@ -1,0 +1,25 @@
+<%# ================================ %>
+<%# 📄 デート記録：一覧を最新状態に更新 %>
+<%# ================================ %>
+<turbo-stream target="moment-list" action="replace">
+  <template>
+    <%= render partial: "moments/moment_list", formats: [:html], locals: { moments: @moments } %>
+  </template>
+</turbo-stream>
+
+<%# ================================ %>
+<%# 🧹 モーダルを閉じて、フォーム初期化 %>
+<%# ================================ %>
+<turbo-stream action="append" target="modal-script-placeholder">
+  <template>
+    <script>
+      setTimeout(() => {
+        const modal = bootstrap.Modal.getInstance(document.getElementById("momentModal"));
+        if (modal) modal.hide();
+
+        const form = document.querySelector("#momentModal form");
+        if (form) form.reset();
+      }, 10);
+    </script>
+  </template>
+</turbo-stream>

@@ -4,23 +4,46 @@
 
 <h2 class="text-xl font-bold mb-4">📅 ふたりのデート記録</h2>
 
-<!-- 💡 投稿ボタン（あとでモーダルに変えやすい構成） -->
-<div class="mb-4">
-  <%= link_to "＋ 記録を投稿する", new_moment_path, class: "btn btn-primary" %>
-  <!-- ※あとでモーダルボタンに差し替える予定ならここをボタンタグに変更可 -->
+<!-- ============================== -->
+<!-- 📷 モーダル起動ボタン -->
+<!-- ============================== -->
+<div class="mb-4 text-end">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#momentModal">
+    ＋ 記録を投稿する
+  </button>
 </div>
 
 <!-- ============================== -->
-<!-- 🗂 投稿一覧（今後部分テンプレート化しやすい） -->
+<!-- 📦 モーダル本体（Bootstrap構造） -->
 <!-- ============================== -->
+<div class="modal fade" id="momentModal" tabindex="-1" aria-labelledby="momentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-<% if @moments.empty? %>
-  <p class="text-gray-600">まだ記録がありません。思い出を残してみましょう！</p>
-<% else %>
-  <div class="space-y-6">
-    <% @moments.each do |moment| %>
-      <%= render partial: "moment", locals: { moment: moment } %>
-      <!-- ✅ 部分テンプレート _moment.html.erb に切り出して拡張性UP -->
-    <% end %>
+      <!-- 🧠 モーダルヘッダー -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="momentModalLabel">デート記録を投稿する</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div>
+
+      <!-- ✍️ モーダル本文（フォーム本体） -->
+      <div class="modal-body" id="momentModal-body">
+        <%= render partial: "form", locals: { moment: @moment } %>
+      </div>
+
+    </div>
   </div>
-<% end %>
+</div>
+
+<!-- ============================== -->
+<!-- ✅ Turbo用スクリプト差し込みエリア -->
+<!-- ============================== -->
+<div id="modal-script-placeholder"></div>
+
+<!-- ============================== -->
+<!-- 🗂 投稿一覧（Turbo差し替え対象） -->
+<!-- ============================== -->
+<!-- ✅ Turboで差し替えできるようidをつける -->
+<div id="moment-list">
+  <%= render partial: "moments/moment_list", locals: { moments: @moments } %>
+</div>

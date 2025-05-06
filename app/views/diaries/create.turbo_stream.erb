@@ -1,0 +1,39 @@
+<%# ================================ %>
+<%# 📸 成功時：日常投稿一覧を最新状態に更新 %>
+<%# ================================ %>
+<% if @diaries.present? %>
+  <turbo-stream target="diary-list" action="replace">
+    <template>
+      <%# ✅ 投稿一覧部分（最新状態）をパーシャルで差し替え %>
+      <%== render partial: "diaries/diary_list", formats: [:html], locals: { diaries: @diaries } %>
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="append" target="modal-script-placeholder">
+    <template>
+      <script>
+        // ✅ Turboで描画直後に実行されるため、安定のために少し遅らせて実行
+        setTimeout(() => {
+          // ✅ モーダルのインスタンスを取得して閉じる
+          let modal = bootstrap.Modal.getInstance(document.getElementById("diaryModal"));
+          if (modal) modal.hide();
+
+          // ✅ フォームを取得してリセット（画像選択などをクリア）
+          let form = document.querySelector("#diaryModal form");
+          if (form) form.reset();
+        }, 10); // ← 10ミリ秒待機でTurbo描画との競合を回避
+      </script>
+    </template>
+  </turbo-stream>
+
+<%# ================================ %>
+<%# ❌ 失敗時：モーダル内フォームのみを差し替え（エラー表示） %>
+<%# ================================ %>
+<% else %>
+  <turbo-stream target="diaryModal-body" action="replace">
+    <template>
+      <%# ❗ バリデーションエラー時：フォームを再描画してエラーメッセージを表示 %>
+      <%= render partial: "diaries/form", locals: { diary: @diary } %>
+    </template>
+  </turbo-stream>
+<% end %>

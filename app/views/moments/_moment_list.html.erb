@@ -1,0 +1,13 @@
+<%# ============================== %>
+<%# 📋 デート記録一覧の部分テンプレート %>
+<%# ============================== %>
+
+<% if moments.empty? %>
+  <p class="text-gray-600">まだ記録がありません。思い出を残してみましょう！</p>
+<% else %>
+  <div class="space-y-6">
+    <% moments.each do |moment| %>
+      <%= render partial: "moment", locals: { moment: moment } %>
+    <% end %>
+  </div>
+<% end %>

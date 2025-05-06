@@ -1,20 +1,50 @@
-<!-- =============================== -->
+<!-- =============================== -->  
 <!-- 📸 日常投稿 一覧ページ -->
 <!-- =============================== -->
 
 <h2>日常の写真たち</h2>
 
-<!-- 📎 投稿ページへのリンク -->
-<%= link_to "＋ 写真を投稿する", new_diary_path, class: "btn btn-outline-primary mb-3" %>
+<!-- ============================== -->
+<!-- 📷 モーダル起動ボタン -->
+<!-- ============================== -->
+<div class="text-end mb-3">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#diaryModal">
+    📷 日常を投稿する
+  </button>
+</div>
 
-<!-- 📷 投稿一覧：自分のペアのユーザー投稿だけを表示 -->
-<div class="diary-gallery">
-  <% @diaries.each do |diary| %>
-    <div class="diary-item">
-      <!-- 💡 複数画像をループ表示 -->
-      <% diary.images.each do |image| %>
-        <%= image_tag image.variant(resize_to_limit: [300, 300]), class: "img-thumbnail mb-2" %>
-      <% end %>
+<!-- ============================== -->
+<!-- 📦 モーダル本体（Bootstrap構造） -->
+<!-- ============================== -->
+<div class="modal fade" id="diaryModal" tabindex="-1" aria-labelledby="diaryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 🧠 モーダルヘッダー -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="diaryModalLabel">日常の投稿</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div>
+
+      <!-- ✍️ モーダル本文（投稿フォーム） -->
+      <div class="modal-body" id="diaryModal-body">
+        <%# ✅ 投稿フォーム（formパーシャルを挿入） %>
+        <%= render partial: "diaries/form", locals: { diary: @diary } %>
+      </div>
+
     </div>
-  <% end %>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- ✅ Turbo Stream用スクリプト差し込みエリア -->
+<!-- ============================== -->
+<div id="modal-script-placeholder"></div>
+
+<!-- ============================== -->
+<!-- 📷 投稿一覧（Turbo差し替え対象） -->
+<!-- ============================== -->
+<div id="diary-list">
+  <%# ✅ 投稿一覧（diary_listパーシャル）をTurboで差し替えできるよう分離 %>
+  <%= render partial: "diaries/diary_list", locals: { diaries: @diaries } %>
 </div>
