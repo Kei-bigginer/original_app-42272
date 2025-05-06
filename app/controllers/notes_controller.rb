@@ -27,18 +27,31 @@ class NotesController < ApplicationController
     # 💡 フォームから送られてきたテーマを保存（未送信時はセッションor予備）
 
     if @note.save
-      current_user.increment!(:trust_points)  # ✅ 信頼ポイント +1
-      redirect_to notes_path, notice: 'ひとことを投稿しました！（信頼ポイント+1）'
-    else
       @notes = current_user.pair.users
-                   .includes(:notes)
-                   .map(&:notes)
-                   .flatten
-                   .sort_by(&:created_at)
-                   .reverse
+                      .includes(:notes)
+                      .flat_map(&:notes)
+                      .sort_by(&:created_at)
+                      .reverse      # ✅ 成功時：create.turbo_stream.erb を探して描画（モーダルを閉じるなど）
 
-      flash.now[:alert] = '投稿に失敗しました'
-      render :index
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to notes_path, notice: "投稿しました！" } # Fallback
+      end
+    else
+      # ✅ 失敗時：バリデーションエラーをそのまま表示
+      respond_to do |format|
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace(
+            "noteModal",  # ✅ モーダル本体のID
+            partial: "notes/modal_form", # ✅ モーダル全体のテンプレートに変更
+            locals: { note: @note, theme: @note.theme } # ✅ 必要な変数を渡す
+          ) 
+        } 
+        format.html {
+          flash.now[:alert] = "投稿に失敗しました。"
+          render :index
+        }
+      end
     end
   end
 

@@ -1,0 +1,35 @@
+<!-- ✅ Turbo Stream：投稿一覧を最新状態に置き換える -->
+<% if @notes.present? %>
+  <turbo-stream target="note-list" action="replace">
+    <template>
+      <%# 投稿一覧部分（note_listパーシャル）をTurboで差し替える %>
+      <%== render partial: "notes/note_list", formats: [:html], locals: { notes: @notes } %>
+    </template>
+  </turbo-stream>
+<% end %>
+
+<!-- ✅ Turbo Stream：モーダルを閉じて、フォームを初期化するJSを差し込む -->
+<turbo-stream action="append" target="modal-script-placeholder">
+  <template>
+    <script>
+      // ⏳ TurboによるHTML更新が終わるタイミングにズレがあるため、少し遅延させてから実行する
+      setTimeout(() => {
+        // ✅ モーダルのDOM要素を取得
+        const modalEl = document.getElementById("noteModal");
+
+        // ✅ Bootstrapのモーダルインスタンスを取得（nullになることもある）
+        let modal = bootstrap.Modal.getInstance(modalEl);
+
+        // ⚠️ nullだった場合は新しくインスタンスを生成する（getInstance失敗時の保険）
+        if (!modal && modalEl) modal = new bootstrap.Modal(modalEl);
+
+        // ✅ モーダルを閉じる
+        if (modal) modal.hide();
+
+        // ✅ モーダル内のフォームを取得して初期化（投稿内容をクリア）
+        const form = modalEl.querySelector("form");
+        if (form) form.reset();
+      }, 10); // ← TurboによるHTML更新後に実行されるように、10msだけ遅延させる
+    </script>
+  </template>
+</turbo-stream>

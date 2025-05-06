@@ -1,0 +1,19 @@
+<!-- ✅ Turboで置き換えるモーダル本体 -->
+<div class="modal fade show d-block" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 🧠 モーダルヘッダー -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="noteModalLabel">今日のひとこと</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div>
+
+      <!-- ✍️ モーダル本文（投稿フォーム） -->
+      <div class="modal-body">
+        <!-- ✅ 投稿フォームの共通パーシャルを呼び出し -->
+        <%= render partial: "notes/form", locals: { note: note, theme: theme } %>
+      </div>
+    </div>
+  </div>
+</div>

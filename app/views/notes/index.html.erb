@@ -64,27 +64,15 @@
   </div>
 </div>
 
+<!-- ✅ Turbo Streamがモーダルを閉じるスクリプトを挿入する場所 -->
+<div id="modal-script-placeholder"></div>
+
 <!-- ============================== -->
-<!-- 📃 投稿一覧表示 -->
+<!-- 📃 最近のひとこと投稿一覧 -->
 <!-- ============================== -->
-<hr>
 <h3>最近のひとこと投稿</h3>
 
-<% if @notes.empty? %>
-  <p class="text-muted">まだ投稿がありません。</p>
-<% else %>
-  <% @notes.each do |note| %>
-    <div class="note-card mb-3 p-2 border rounded">
-      <!-- 👤 投稿者名 -->
-      <p class="mb-1"><strong>👤 <%= note.user.nickname %></strong></p>
-
-      <!-- 💬 テーマ＋本文 -->
-      <p class="mb-1">
-        💬 <strong><%= note.theme.presence || "テーマ未設定" %></strong>：「<%= note.content %>」
-      </p>
-
-      <!-- 📅 投稿日時 -->
-      <p class="text-muted small">📅 <%= note.created_at.strftime("%Y年%m月%d日") %></p>
-    </div>
-  <% end %>
-<% end %>
+<!-- ✅ Turbo Stream用：投稿リストを差し替えるためのターゲット -->
+<div id="note-list">
+  <%= render partial: "notes/note_list", locals: { notes: @notes } %>
+</div>
