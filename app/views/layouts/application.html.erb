@@ -16,36 +16,41 @@
 
   <body class="layout-bg">
 
-    <!-- 🚩 ヘッダー：アプリ名＋ナビ -->
+    <!-- 🚩 ヘッダー：アプリ名＋ハンバーガー＋機能アイコン -->
     <header class="header">
-      <div class="container">
-        <!-- 🌸 アプリロゴ（タイトル） -->
-        <h1>day×day.</h1>
+      <div class="container d-flex justify-content-between align-items-center">
+    
+        <!-- 🌱 左：ロゴとサブタイトル -->
+        <div class="logo-group d-flex flex-column align-items-start">
+          <h1 class="mb-0">
+            <%= link_to 'day×day.', root_path, class: 'navbar-brand text-dark text-decoration-none fw-bold' %>
+          </h1>
+          <small class="text-muted fs-6">ふたりの信頼を、やさしく育てるアプリ</small>
+        </div>
 
-        <!-- 🧭 ナビゲーション（左上のリンク類） -->
-        <nav>
-          <%= link_to 'ホーム', root_path %> |
-          <% if user_signed_in? %>
-            <%= link_to 'マイページ', root_path %> |
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
-          <% else %>
-            <%= link_to 'ログイン', new_user_session_path %> |
-            <%= link_to '新規登録', new_user_registration_path %>
-          <% end %>
-        </nav>
-
-        <!-- ✨ 機能アイコン（ひとこと・日常・デート） -->
+        <!-- 🌟 右：機能アイコン（ナビゲーション） -->
         <% if user_signed_in? && current_user.pair&.users&.count == 2 %>
-          <div class="feature-icons mt-2">
-            <%= link_to notes_path, class: "icon-link" do %>
-              📝
-            <% end %>
-            <%= link_to diaries_path, class: "icon-link" do %>
-              📷
-            <% end %>
-            <%= link_to moments_path, class: "icon-link" do %>
-              💑
-            <% end %>
+          <div class="icon-nav d-flex gap-3">
+            <%= link_to notes_path, class: "icon-button", data: { tooltip: "ひとこと一覧" } do %> 📝 <% end %>
+            <%= link_to diaries_path, class: "icon-button", data: { tooltip: "日常の写真" } do %> 📷 <% end %>
+            <%= link_to moments_path, class: "icon-button", data: { tooltip: "デート記録" } do %> 💑 <% end %>
+          </div>
+        <% end %>
+
+        <!-- 🍔 ハンバーガー（ログアウト） -->
+        <% if user_signed_in? %>
+          <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ☰
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to 'プロフィール編集', "#", class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "dropdown-item" %>
+              </li>
+            </ul>
           </div>
         <% end %>
       </div>
@@ -70,26 +75,24 @@
 
     <!-- ✅ Swiper JS（CDN） -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+
     <!-- ✅ Swiper初期化スクリプト（中心強調＋自動スクロール） -->
     <script>
-      // 📦 ページ読み込み後にSwiperを初期化
       document.addEventListener('DOMContentLoaded', function () {
         const swiper = new Swiper(".mySwiper", {
-          loop: true,                       // 🔁 無限ループ再生
-          slidesPerView: 3,                // 🖼 一度に表示する画像枚数
-          spaceBetween: 10,                // 🧱 スライド間の余白
-          centeredSlides: true,            // 🎯 中央寄せレイアウト
+          loop: true,
+          slidesPerView: 3,
+          spaceBetween: 10,
+          centeredSlides: true,
           autoplay: {
-            delay: 2000,                   // ⏱ 自動スクロールの間隔（2秒）
-            disableOnInteraction: false    // 🖱 操作後も自動再生は止めない
+            delay: 2000,
+            disableOnInteraction: false
           },
           on: {
-            // 🌀 スライド切り替え時に中心以外を半透明にする処理
             slideChangeTransitionEnd: function () {
               const slides = document.querySelectorAll('.swiper-slide');
               slides.forEach((slide, index) => {
-                slide.style.opacity = (index === this.realIndex + 1) ? '1' : '0.5'; // 中央だけ不透明
+                slide.style.opacity = (index === this.realIndex + 1) ? '1' : '0.5';
               });
             }
           }
@@ -97,7 +100,5 @@
       });
     </script>
 
-  
-  
   </body>
 </html>

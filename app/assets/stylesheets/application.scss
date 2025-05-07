@@ -1,84 +1,211 @@
 /* ===========================
-  📦 全ページ共通レイアウト用スタイル
+  📆 全体レイアウト・基本スタイル
 =========================== */
 
-/* 🌕 アプリ全体の背景と文字の基本設定 */
+/* 🌕 背景とフォント全体設定 */
 body.layout-bg {
-  background-color: #fff7ec; /* メイン背景色：やわらかい薄オレンジ（安心感・やさしさ） */
-  font-family: 'Helvetica', 'Arial', sans-serif; /* 読みやすさ重視のフォント */
+  background-color: #fff7ec; // やわらかい安心感のある背景
+  font-family: 'Helvetica', 'Arial', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* 🧱 コンテンツ幅を中央寄せにする共通枠 */
+/* 🧱 コンテンツの中央寄せ・最大幅 */
 .container {
-  max-width: 1000px;       /* 画面幅が広くなりすぎないように制限 */
-  margin: 0 auto;          /* 中央寄せ */
-  padding: 10px 20px;      /* 内側の余白（上下10px, 左右20px） */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px;
+  position: relative;
+  background-color: transparent !important; // 背景を透明にしてヘッダー色と一体化
 }
 
 /* ===========================
-  🟢 ヘッダー・フッターの共通デザイン
+  📝 タイポグラフィ & 階層感
 =========================== */
 
-/* 🌿 ヘッダーとフッターの背景に共通の優しい緑を設定 */
+h5 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+strong {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #222;
+}
+
+.recent-note {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: transform 0.2s ease;
+}
+
+.text-muted {
+  font-size: 0.85rem;
+  color: #888 !important;
+}
+
+.swiper-slide img {
+  height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 3px solid #f2f2f2;
+}
+
+section, .mb-4 {
+  margin-bottom: 2.5rem !important;
+}
+
+/* ===========================
+  🎨 ボタン・UIパーツ
+=========================== */
+
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #6fc3b2;
+  border-color: #6fc3b2;
+}
+.btn-primary:hover {
+  background-color: #58afa0;
+  border-color: #58afa0;
+}
+
+.btn-outline-primary {
+  color: #6fc3b2;
+  border-color: #6fc3b2;
+  background-color: transparent;
+}
+.btn-outline-primary:hover {
+  background-color: #6fc3b2;
+  color: white;
+}
+
+.btn-outline-secondary {
+  color: #999;
+  border-color: #bbb;
+  background-color: transparent;
+}
+.btn-outline-secondary:hover {
+  background-color: #ccc;
+  color: white;
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.btn-note {
+  background-color: #6fc3b2;
+  border-color: #6fc3b2;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.btn-note:hover {
+  background-color: #58afa0;
+  border-color: #58afa0;
+}
+
+.btn-diary {
+  background-color: #63b6db;
+  border-color: #63b6db;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.btn-diary:hover {
+  background-color: #4ba3ca;
+}
+
+.btn-moment {
+  background-color: #ec6a94;
+  border-color: #ec6a94;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.btn-moment:hover {
+  background-color: #e1517d;
+}
+
+/* ===========================
+  🟢 ヘッダー&フッター共通
+=========================== */
+
 .header, .footer {
-  background-color: #a8d5ba; /* 柔らかいミントグリーン（安心感・信頼感） */
-  color: #fff;               /* 白文字で可読性アップ */
-  padding: 15px 0;           /* 上下の余白で圧迫感なく */
+  background-color: #a8d5ba;
+  color: #fff;
+  padding: 15px 0;
   text-align: center;
 }
 
-/* 🚩 ヘッダー内のタイトル、フッターの文の余白リセット */
 .header h1, .footer p {
   margin: 0;
 }
 
-/* 🔗 ナビゲーション内のリンクスタイル */
+.header h1 {
+  font-size: 1.8rem;
+  color: #222 !important;
+  margin-bottom: 0.25rem;
+}
+
+.icon-nav {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
 nav a {
   color: #fff;
   text-decoration: none;
-  margin: 0 10px;            /* リンク間のスペース確保 */
+  margin: 0 10px;
 }
-
-/* ✨ ホバー時に下線でリンク感を強調 */
 nav a:hover {
   text-decoration: underline;
 }
 
-/* 🔲 メインコンテンツの上下余白 */
-.main {
-  padding: 40px 20px;
-}
-
 /* ===========================
-  📝 フォーム系の共通パーツデザイン
+  📝 フォーム入力
 =========================== */
 
-/* ✏️ 入力フォーム（メール・パスワード・ニックネームなど） */
 .form-input {
   width: 100%;
-  max-width: 300px;          /* 中央の適度な幅 */
-  margin: 10px auto;         /* フォーム同士の間隔を保つ */
+  max-width: 300px;
+  margin: 10px auto;
   padding: 10px;
-  border-radius: 10px;       /* やわらかい印象にする角丸 */
+  border-radius: 10px;
   border: none;
-  background-color: #111;    /* 黒背景で存在感を強調 */
-  color: #fff;               /* 白文字で可読性確保 */
+  background-color: #111;
+  color: #fff;
 }
 
-/* 🔘 「登録」「ログイン」ボタンの共通スタイル */
 .form-submit {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #333;    /* ボタン背景：重厚なグレー */
+  background-color: #333;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
 }
 
-/* 📎 ログイン・新規登録などへのリンクボタン風スタイル */
 .form-link {
   display: inline-block;
   margin-top: 10px;
@@ -89,13 +216,76 @@ nav a:hover {
   text-decoration: none;
 }
 
-/* 🧭 汎用：中央揃えしたいときに使うクラス */
 .text-center {
   text-align: center;
 }
 
-/* 📋 フォーム全体を中央寄せ＋幅制限 */
 form {
-  max-width: 400px;     /* お好みで調整可 */
-  margin: 0 auto;       /* 中央に配置！ */
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ===========================
+  🪪 ロゴ・ブランド
+=========================== */
+
+.navbar-brand {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  margin: 0;
+  padding-left: 8px;
+}
+
+/* ================================
+  🎯 アイコンボタン
+================================ */
+
+.icon-button {
+  font-size: 2rem;
+  padding: 12px;
+  border-radius: 50%;
+  text-align: center;
+  display: inline-block;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.icon-button[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 999;
+  opacity: 1;
+}
+
+/* ===============================
+  📋 カードUI
+================================ */
+
+.card-ui {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+.card-ui:hover {
+  transform: translateY(-2px);
 }

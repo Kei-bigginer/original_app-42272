@@ -1,48 +1,45 @@
-<div class="container py-4">
+<!-- 🌐 トップページ全体コンテナ -->
+<div class="container py-4" style="position: relative;">
 
-  <!-- ============================== -->
-  <!-- 👩‍❤️‍👨 ペア情報：ふたりの名前と信頼ポイント -->
-  <!-- ============================== -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-      <h2><%= current_user.nickname %> 💠 信頼マーク</h2>
-      <p class="text-muted small mb-0">ふたりの信頼を積み重ね中...</p>
-    </div>
-    <div>
-      <!-- プロフィール編集やログアウトなど（仮） -->
-      <%= link_to "プロフィール編集", "#", class: "btn btn-outline-secondary btn-sm me-2" %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
+  <!-- 👩‍❤️‍👨 ペア情報：ふたりの名前（左上に固定表示） -->
+  <%# ✅ ログインユーザーとパートナーの情報を取得 %>
+  <% pair_users = current_user.pair.users.to_a %>
+  <% partner = pair_users.reject { |u| u == current_user }.first %>
+
+  <!-- ✅ container の直下に absolute で配置することで、左上に固定される -->
+  <!-- 👤 ユーザー情報カード（名前＋信頼ポイント） -->
+  <div style="position: absolute; top: -10px; left: 10px; z-index: 999;">
+    <div class="bg-white px-3 py-2 rounded shadow-sm" style="max-width: 260px;">
+      <h6 class="mb-1 fw-bold"><%= "#{current_user.nickname} × #{partner.nickname}" %></h6>
+      <p class="text-muted small mb-1">ふたりの信頼を積み重ね中...</p>
+      <p class="text-success fw-semibold mb-0">💠 信頼ポイント：<%= @trust_points %> pt</p>
     </div>
   </div>
 
-  <!-- ============================== -->
-  <!-- 🌟 信頼ポイント表示 -->
-  <!-- ============================== -->
-  <div class="mb-4">
-    <h5 class="mb-2">信頼ポイント</h5>
-    <div class="border rounded p-4 text-center bg-light">
-      <h1><%= @trust_points %> pt</h1>
-      <p class="text-muted small mb-0">※ 毎日の投稿で1ポイントずつ増えていきます</p>
-    </div>
-  </div>
+<%# 各種操作ボタンは application.html.erb のヘッダーに統合したため削除しました %>
+
+  
 
   <!-- ============================== -->
   <!-- 🗨️ 今日のひとこと投稿へ誘導 -->
   <!-- ============================== -->
   <div class="mb-4">
-        <!-- 🔜 将来的にはSPA用アイコンからの誘導に切り替える予定（ここは削除候補） -->
-    <%= link_to "今日のひとことを投稿する", notes_path, class: "btn btn-primary w-100" %>
+    <!-- 🔜 将来的にはSPA用アイコンからの誘導に切り替える予定（ここは削除候補） -->
+    <%= link_to "今日のひとことを投稿する", notes_path, class: "btn btn-note w-100" %>
   </div>
 
   <!-- ============================== -->
   <!-- 📝 投稿一覧と画像スライダー（左右カラム） -->
   <!-- ============================== -->
   <div class="row g-4 mb-4">
+
     <!-- 👈 左：最近の投稿（あなた＋パートナー） -->
     <div class="col-md-5">
       <h5>最近の投稿（あなた & パートナー）</h5>
+
       <% @recent_notes.each do |note| %>
-        <div class="border rounded p-2 mb-2 bg-white">
+        <!-- 🎨 recent-noteクラスを card-ui に統一（角丸＋影＋余白） -->
+        <div class="card-ui">
           💬 <strong><%= note.theme %></strong>：「<%= note.content %>」
           <div class="text-muted small">📅 <%= note.created_at.strftime("%Y/%m/%d %H:%M") %></div>
         </div>
@@ -56,13 +53,15 @@
           <% @diaries.each do |diary| %>
             <% diary.images.each do |image| %>
               <div class="swiper-slide">
-                <%= image_tag image, class: "img-fluid rounded", style: "height: 200px; object-fit: cover;" %>
+                <!-- 🎞️ CSSで高さ・角丸・影を統一 -->
+                <%= image_tag image, class: "img-fluid" %>
               </div>
             <% end %>
           <% end %>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- ============================== -->
@@ -70,8 +69,11 @@
   <!-- ============================== -->
   <!-- 🔜 将来的にはSPA用ナビゲーションアイコンから遷移する予定（仮置き） -->
   <div class="mb-4 d-grid gap-2">
-    <%= link_to "日常部屋を見る", diaries_path, class: "btn btn-outline-primary" %>
-    <%= link_to "デート記録を見る", moments_path, class: "btn btn-outline-secondary" %>
+    <!-- 📷 日常部屋リンクに空色の専用ボタンを適用 -->
+    <%= link_to "日常部屋を見る", diaries_path, class: "btn btn-diary" %>
+
+    <!-- 💑 デート記録リンクにやさしいピンクのボタンを適用 -->
+    <%= link_to "デート記録を見る", moments_path, class: "btn btn-moment" %>
   </div>
 
   <!-- ============================== -->
