@@ -1,3 +1,10 @@
+/* ============================== */
+/* ✨ SCSS モジュール読み込み     */
+/* ============================== */
+@import "notes";
+
+
+
 /* ===========================
   📆 全体レイアウト・基本スタイル
 =========================== */
@@ -297,4 +304,25 @@ label[for="birthday"] {
 }
 .card-ui:hover {
   transform: translateY(-2px);
+}
+
+/* ============================== */
+/* 🌱 モーダル起動ボタンのスタイル */
+/* ============================== */
+.btn-note-modal {
+  background-color: #ffffff;
+  color: #2d6a4f;
+  border: 1.5px solid #95d5b2;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-note-modal:hover {
+  background-color: #d8f3dc;
+  border-color: #74c69d;
+  color: #1b4332;
 }
