@@ -1,18 +1,41 @@
-<!-- ✅ _diary_list.html.erb：日常投稿一覧（1画像＝1カード構成） -->
+<!-- ✅ _diary_list.html.erb：日常投稿グリッド表示 with 拡大モーダル（Stimulus対応） -->
 <% if diaries.empty? %>
   <p class="text-muted">まだ日常の投稿がありません。</p>
 <% else %>
-  <% diaries.each do |diary| %>
-    <% diary.images.each do |image| %>
-      <div class="diary-item mb-3 p-2 border rounded">
-        <!-- 🖼️ 各画像を個別にカード風に表示 -->
-        <%= image_tag image.variant(resize_to_limit: [300, 300]), class: "img-thumbnail mb-2" %>
+  <!-- 🌿 グリッドレイアウトで表示 -->
+  <div class="diary-grid">
+    <% diaries.each do |diary| %>
+      <% diary.images.each do |image| %>
+        <div class="diary-card">
+          <!-- 🖼️ 拡大用モーダル付き画像（Stimulusでクリック制御） -->
+          <%= image_tag image.variant(resize_to_limit: [300, 300]),
+                class: "img-fluid",
+                data: {
+                  bs_toggle: "modal",                  # Bootstrapのモーダル起動
+                  bs_target: "#imageModal",            # 対象モーダルID
+                  controller: "expand-image",          # Stimulusコントローラー名
+                  action: "click->expand-image#show",  # クリック時にshowアクション
+                  expand_image_url_value: url_for(image) # モーダルに渡す画像URL
+                } %>
 
-        <!-- 📅 投稿日を表示 -->
-        <p class="text-muted small mb-0">
-          📅 <%= diary.created_at.strftime("%Y年%m月%d日") %>
-        </p>
-      </div>
+          <!-- 📅 投稿日を表示 -->
+          <p class="diary-date text-muted small mb-2 px-2">
+            📅 <%= diary.created_at.strftime("%Y年%m月%d日") %>
+          </p>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📸 拡大画像用モーダル -->
+  <!-- ============================== -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0">
+        <button type="button" class="btn-close btn-close-white ms-auto me-2 mt-2" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        <img id="modalImage" src="" class="img-fluid rounded shadow-lg" style="max-height: 90vh; object-fit: contain;">
+      </div>
+    </div>
+  </div>
 <% end %>

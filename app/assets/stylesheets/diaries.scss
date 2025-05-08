@@ -1,0 +1,88 @@
+/* ============================== */
+/* 🌼 diaries#index 限定デザイン */
+/* ============================== */
+.diaries.index {
+  /* ✨ フォントをやわらかく統一 */
+  font-family: 'Kosugi Maru', sans-serif;
+
+  /* 🌤 やさしいチェック柄背景（“写真を貼る部屋”っぽさ） */
+  background-color: #fefcfb;
+  background-image: 
+    linear-gradient(135deg, #f9f9f9 25%, transparent 25%), 
+    linear-gradient(225deg, #f9f9f9 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+
+  padding: 20px 0; // 上下に余白を追加
+
+  /* ============================== */
+  /* 📸 グリッドレイアウトで写真を並べる */
+  /* ============================== */
+  .diary-grid {
+    display: grid;                                         // ✅ グリッドレイアウト
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); // ✅ 最小160px〜自動調整
+    gap: 24px; // いまは16px → 少し広げると「貼った感」が出る
+    margin-top: 24px;
+    padding: 0 8px;
+  }
+
+  /* 📷 各日常写真カードのスタイル */
+  .diary-card {
+    background-color: #fff;
+    border-radius: 12px;                                  // ✅ 角丸
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);             // ✅ 軽い影
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 12px; // ✅ カード下部に余白を作って情報エリアに余裕を
+  }
+
+  /* 🖼️ カード内の画像スタイル */
+  .diary-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;                                   // ✅ 画像が中央から切り抜かれるように表示
+    display: block;
+  }
+
+  /* 🎈 ホバー演出：ふんわり浮く */
+  .diary-card:hover {
+    transform: translateY(-4px) scale(1.02); // ✅ 少しズームして“手に取った感”を演出
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); // ✅ より立体的なシャドウで“存在感UP”
+  }
+  
+
+  /* 📅 投稿日時表示（オプション） */
+  .diary-date {
+    margin-top: 6px;              // ✅ 上に余白
+    border-top: 1px solid #eee;   // ✅ 区切り線（薄め）
+    padding-top: 6px;             // ✅ 線とテキストの間の余白
+    text-align: right;
+    font-size: 0.8rem;
+    color: #888;
+  }
+}
+
+/* ============================== */
+/* 🌿 やさしい投稿ボタン（diary用） */
+/* ============================== */
+.btn-diary {
+  background-color: #ffffff;                  // 🔳 淡い背景で統一感
+  color: #468faf;                             // 🎨 信頼感のある落ち着いた青
+  border: 1.5px solid #ade8f4;                // ⛓️ アクアブルーの優しい枠線
+  border-radius: 30px;                        // 🌱 丸みでやさしさを演出
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);   // ☁️ 軽い立体感で浮かせる
+  transition: all 0.25s ease;                 // 🎞 なめらかに動く
+}
+
+.btn-diary:hover {
+  background-color: #d2f4ff;                  // 💦 アクア系のふわっと背景
+  color: #0077b6;                             // 🔵 やや強めの青で強調
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);  // ☁️ 浮遊感アップ
+  transform: translateY(-2px);                // 🔼 少し上に浮かせる
+}

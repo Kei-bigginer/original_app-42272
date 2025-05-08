@@ -2,6 +2,7 @@
 /* ✨ SCSS モジュール読み込み     */
 /* ============================== */
 @import "notes";
+@import "diaries"; // ✅ diaries.scss を適用（notesの下でもOK）
 
 
 
