@@ -1,50 +1,63 @@
-<h2 class="text-center">新規登録</h2>
-<!-- 👇 ここに text-center を追加 -->
+<h2 class="text-center">新規登録</h2> 
+
+<!-- 👇 フォーム全体を中央寄せに -->
 <div class="text-center">
 
-<%# <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
-    
-    <!-- 👇 新規登録フォーム（Turboがsubmitを奪わないように明示的に無効化） -->
-<%= form_for(resource, 
-             as: resource_name, 
-             url: registration_path(resource_name), 
-             html: { data: { turbo: false } }) do |f| %>
-    
-    <!-- ✅ 登録時のエラーメッセージを表示 -->
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <!-- 👇 新規登録フォーム（Turboを無効化して通常のsubmit動作に） -->
+  <%= form_for(resource, 
+               as: resource_name, 
+               url: registration_path(resource_name), 
+               html: { data: { turbo: false } }) do |f| %>
 
-  <div class="field">
-    <%= f.label :nickname, "ニックネーム" %><br />
-    <%= f.text_field :nickname, class: "form-input" %>
-  </div>
+    <!-- ✅ Deviseのエラー表示 -->
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
-  </div>
+    <!-- 📝 ニックネーム入力 -->
+    <div class="field">
+      <%= f.label :nickname, "ニックネーム" %><br />
+      <%= f.text_field :nickname, class: "form-input" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password, "パスワード" %><br />
-    <%= f.password_field :password, autocomplete: "new-password", class: "form-input" %>
-  </div>
+    <!-- 📨 メールアドレス -->
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input" %>
-  </div>
+    <!-- 🔒 パスワード -->
+    <div class="field">
+      <%= f.label :password, "パスワード" %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-input" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :birthday, "誕生日" %><br />
-    <%= f.date_select :birthday, { start_year: 1950, end_year: Date.today.year, use_month_numbers: true, prompt: { year: '年', month: '月', day: '日' } }, class: "form-date" %>
-  </div>
+    <!-- 🔒 パスワード確認 -->
+    <div class="field">
+      <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input" %>
+    </div>
 
-  <div class="actions text-center">
-    <%= f.submit "登録する", class: "form-submit" %>
-  </div>
-<% end %>
+    <!-- 🎂 誕生日入力（スマホ向け・未来日制限あり） -->
+    <div class="field">
+      <%= f.label :birthday, "🎂 あなたの誕生日（公開されません）" %><br />
+      
+      <!-- 📅 カレンダーUI ＋ 未来日選択を制限（max: 今日） -->
+      <%= f.date_field :birthday, 
+                      class: "form-input", 
+                      id: "birthday", 
+                      placeholder: "YYYY-MM-DD", 
+                      max: Date.today.to_s %>
+    </div>
+
+    <!-- ✅ 送信ボタン -->
+    <div class="actions text-center mt-3">
+      <%= f.submit "登録する", class: "form-submit" %>
+    </div>
+
+  <% end %>
 </div>
 
-<div class="text-center">
+<!-- 👇 ログインリンク部分（中央寄せ） -->
+<div class="text-center mt-4">
   <p>すでにアカウントをお持ちの方はこちら</p>
   <%= link_to "ログインページへのリンク", new_session_path(resource_name), class: "form-link" %>
 </div>
