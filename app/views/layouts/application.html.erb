@@ -48,7 +48,7 @@
                 <%= link_to 'プロフィール編集', "#", class: "dropdown-item" %>
               </li>
               <li>
-                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "dropdown-item" %>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？", turbo: false }, class: "dropdown-item" %>
               </li>
             </ul>
           </div>
