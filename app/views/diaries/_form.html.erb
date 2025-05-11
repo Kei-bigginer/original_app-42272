@@ -1,0 +1,31 @@
+<!-- ============================== -->
+<!-- 📝 日常投稿フォーム（モーダル用） -->
+<!-- ============================== -->
+
+<%# バリデーションエラーの表示（あれば） %>
+<% if diary.errors.any? %>
+  <div class="alert alert-danger">
+    <p><strong>エラーがあります：</strong></p>
+    <ul>
+      <% diary.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: diary, local: true, html: { multipart: true } do |f| %>
+  <div class="mb-3">
+    <%# 📸 画像を複数選択できるようにする %>
+    <%= f.label :images, "日常の写真（最大5枚）", class: "form-label" %>
+    <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control" %>
+  </div>
+
+  <%# 📨 投稿ボタン %>
+  <div class="text-center mt-3">
+    <%= f.submit "投稿する", class: "btn btn-success w-100" %>
+  </div>
+<% end %>
+
+<%# 🔎 補足：画像は5枚まで。モデル側で制限しておくと◎ %>
+<p class="text-muted small mt-2 mb-0">※1回の投稿で最大5枚までアップロードできます</p>

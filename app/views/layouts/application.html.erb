@@ -4,40 +4,101 @@
     <title>day×day.</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_importmap_tags %>
-</head>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %> <!-- ✅ これが読み込みの本体 -->
 
-  <body class="layout-bg">
+    <!-- ✅ Bootstrap CSS（CDN） -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- ✅ Swiper CSS（CDN） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  </head>
+
+  <body class="<%= controller.controller_name %> <%= controller.action_name %> layout-bg">
+
+    <!-- 🚩 ヘッダー：アプリ名＋ハンバーガー＋機能アイコン -->
     <header class="header">
-      <div class="container">
-        <h1>day×day</h1>
-        <nav>
-          <%= link_to 'ホーム', root_path %> |
-          <% if user_signed_in? %>
-            <%= link_to 'マイページ', root_path %> |
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
-          <% else %>
-            <%= link_to 'ログイン', new_user_session_path %> |
-            <%= link_to '新規登録', new_user_registration_path %>
-          <% end %>
-        </nav>
+      <div class="container d-flex justify-content-between align-items-center">
+    
+        <!-- 🌱 左：ロゴとサブタイトル -->
+        <div class="logo-group d-flex flex-column align-items-start">
+          <h1 class="mb-0">
+            <%= link_to 'day×day.', root_path, class: 'navbar-brand text-dark text-decoration-none fw-bold' %>
+          </h1>
+          <small class="text-muted fs-6">ふたりの信頼を、やさしく育てるアプリ</small>
+        </div>
+
+        <!-- 🌟 右：機能アイコン（ナビゲーション） -->
+        <% if user_signed_in? && current_user.pair&.users&.count == 2 %>
+          <div class="icon-nav d-flex gap-3">
+            <%= link_to notes_path, class: "icon-button", data: { tooltip: "ひとこと一覧" } do %> 📝 <% end %>
+            <%= link_to diaries_path, class: "icon-button", data: { tooltip: "日常の写真" } do %> 📷 <% end %>
+            <%= link_to moments_path, class: "icon-button", data: { tooltip: "デート記録" } do %> 💑 <% end %>
+          </div>
+        <% end %>
+
+        <!-- 🍔 ハンバーガー（ログアウト） -->
+        <% if user_signed_in? %>
+          <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ☰
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to 'プロフィール編集', "#", class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "dropdown-item" %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </header>
 
-     <!-- 👇 ここで main 全体を container で囲う -->
-  <main class="main">
-    <div class="container">
-      <%= yield %>
-    </div>
-  </main>
+    <!-- 📦 メインコンテンツ表示領域 -->
+    <main class="main">
+      <div class="container">
+        <%= yield %> <!-- 各ページの中身がここに入る -->
+      </div>
+    </main>
 
+    <!-- 📌 フッター（共通） -->
     <footer class="footer">
       <div class="container">
         <p>&copy; 2025 day×day. All rights reserved.</p>
       </div>
     </footer>
-    
+
+    <!-- ✅ Bootstrap JS（CDN） -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ✅ Swiper JS（CDN） -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- ✅ Swiper初期化スクリプト（中心強調＋自動スクロール） -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper(".mySwiper", {
+          loop: true,
+          slidesPerView: 3,
+          spaceBetween: 10,
+          centeredSlides: true,
+          autoplay: {
+            delay: 2000,
+            disableOnInteraction: false
+          },
+          on: {
+            slideChangeTransitionEnd: function () {
+              const slides = document.querySelectorAll('.swiper-slide');
+              slides.forEach((slide, index) => {
+                slide.style.opacity = (index === this.realIndex + 1) ? '1' : '0.5';
+              });
+            }
+          }
+        });
+      });
+    </script>
+
   </body>
 </html>

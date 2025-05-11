@@ -1,0 +1,30 @@
+<!-- ✅ エラーメッセージ表示（空投稿などのバリデーション失敗時） -->
+<% if note.errors.any? %>
+  <div class="alert alert-danger">
+    <p><strong>入力にエラーがあります：</strong></p>
+    <ul class="mb-0">
+      <% note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<!-- ✅ 投稿フォーム（モーダル・通常共通で使える） -->
+<%= form_with model: note, local: true do |f| %>
+  <div class="form-group">
+    <!-- 💬 投稿内容 -->
+    <%= f.text_area :content, placeholder: "ここに自由にひとことを書く", rows: 3, maxlength: 140, class: "form-control" %>
+  </div>
+
+  <!-- 🎲 ランダムテーマを非表示で送信 -->
+  <%= f.hidden_field :theme, value: theme %>
+
+  <!-- 📨 投稿ボタン -->
+  <div class="mt-3">
+    <%= f.submit "投稿する", class: "btn btn-success w-100" %>
+  </div>
+<% end %>
+
+<!-- 📌 補足メッセージ -->
+<p class="text-muted small mt-2 mb-0">※投稿は1日1回だけです</p>

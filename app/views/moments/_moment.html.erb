@@ -1,23 +1,25 @@
 <!-- ============================== -->
-<!-- 🧾 Moment表示用テンプレート -->
+<!-- 💌 デート記録カード（Bootstrap版・改善） -->
 <!-- ============================== -->
 
-<div class="p-4 border rounded shadow-sm bg-white">
+<div class="moment-card">
   <!-- 📅 日付 -->
-  <p><strong>日付:</strong> <%= moment.date.strftime("%Y年%m月%d日") %></p>
+  <p class="mb-2"><strong>日付:</strong> <%= moment.date.strftime("%Y年%m月%d日") %></p>
 
   <!-- ✏️ メモ -->
-  <p><strong>メモ:</strong> <%= moment.memo %></p>
+  <% if moment.memo.present? %>
+    <p class="memo"><strong>メモ:</strong> <%= moment.memo %></p>
+  <% end %>
 
   <!-- 🖼️ 画像 -->
   <% if moment.image.attached? %>
-    <div class="mt-2">
-      <%= image_tag moment.image, class: "w-full max-w-xs rounded" %>
+    <div class="moment-image-wrapper">
+      <%= image_tag moment.image, class: "moment-image" %>
     </div>
   <% end %>
 
   <!-- 📍 場所 -->
   <% if moment.location.present? %>
-    <p class="mt-2 text-sm text-gray-600"><strong>場所:</strong> <%= moment.location %></p>
+    <p class="text-muted"><strong>場所:</strong> <%= moment.location %></p>
   <% end %>
 </div>

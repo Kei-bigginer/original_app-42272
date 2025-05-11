@@ -12,8 +12,17 @@ class PairsController < ApplicationController
     @partner_recent_notes = partner.present? ? partner.notes.order(created_at: :desc).limit(3) : []
   
     # ↓ これを入れてなかったらエラーになる
-  @recent_notes = (@my_recent_notes + @partner_recent_notes).sort_by(&:created_at).reverse.first(3)
+    @recent_notes = (@my_recent_notes + @partner_recent_notes).sort_by(&:created_at).reverse.first(3)
 
+     # 🖼 Swiper用：自分と相手の画像投稿を取得（最新ランダム10件）
+    pair_user_ids = current_user.pair.users.pluck(:id) # 👈 ペアの全ユーザーID
+    if ActiveRecord::Base.connection.adapter_name == "Mysql2"
+      # 🐬 開発環境（MySQL）の場合：RAND()を使用
+      @diaries = Diary.includes(images_attachments: :blob).where(user_id: pair_user_ids).order("RAND()").limit(10)
+    else
+      # 🐘 本番環境（PostgreSQL）の場合：RANDOM()を使用
+      @diaries = Diary.includes(images_attachments: :blob).where(user_id: pair_user_ids).order("RANDOM()").limit(10)
+    end
   end
   
 

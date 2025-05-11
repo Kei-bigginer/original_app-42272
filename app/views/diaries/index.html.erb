@@ -1,20 +1,58 @@
-<!-- =============================== -->
+<!-- =============================== -->   
 <!-- 📸 日常投稿 一覧ページ -->
 <!-- =============================== -->
 
-<h2>日常の写真たち</h2>
+<div class="diaries index">
+  <!-- 🏷️ タイトル -->
+  <h2>日常アーカイブ📂</h2>
+  <p class="text-muted mb-4">📸 なんてことない毎日を、ちょっとだけ記録してみる。</p>
 
-<!-- 📎 投稿ページへのリンク -->
-<%= link_to "＋ 写真を投稿する", new_diary_path, class: "btn btn-outline-primary mb-3" %>
+  <!-- ============================== -->
+  <!-- 📷 投稿導線：補足＋ボタン -->
+  <!-- ============================== -->
+  <div class="text-end mb-3">
+    <!-- 💬 誘導テキスト（ボタンに意味づけを） -->
+    <p class="text-muted mb-2 small">📷 今日も何か1枚、残してみる？（1回の投稿で最大5枚まで）</p>
 
-<!-- 📷 投稿一覧：自分のペアのユーザー投稿だけを表示 -->
-<div class="diary-gallery">
-  <% @diaries.each do |diary| %>
-    <div class="diary-item">
-      <!-- 💡 複数画像をループ表示 -->
-      <% diary.images.each do |image| %>
-        <%= image_tag image.variant(resize_to_limit: [300, 300]), class: "img-thumbnail mb-2" %>
-      <% end %>
+    <!-- 🌿 投稿ボタン（柔らかく自然に馴染むようにカスタムclass） -->
+    <button type="button" class="btn btn-diary" data-bs-toggle="modal" data-bs-target="#diaryModal">
+      📷 日常を投稿する
+    </button>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📦 モーダル本体（Bootstrap構造） -->
+  <!-- ============================== -->
+  <div class="modal fade" id="diaryModal" tabindex="-1" aria-labelledby="diaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- 🧠 モーダルヘッダー -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="diaryModalLabel">日常の投稿</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
+
+        <!-- ✍️ モーダル本文（投稿フォーム） -->
+        <div class="modal-body" id="diaryModal-body">
+          <%# ✅ 投稿フォーム（formパーシャルを挿入） %>
+          <%= render partial: "diaries/form", locals: { diary: @diary } %>
+        </div>
+
+      </div>
     </div>
-  <% end %>
+  </div>
+
+  <!-- ============================== -->
+  <!-- ✅ Turbo Stream用スクリプト差し込みエリア -->
+  <!-- ============================== -->
+  <div id="modal-script-placeholder"></div>
+
+  <!-- ============================== -->
+  <!-- 📷 投稿一覧（Turbo差し替え対象） -->
+  <!-- ============================== -->
+  <div id="diary-list">
+    <%# ✅ 投稿一覧（diary_listパーシャル）をTurboで差し替えできるよう分離 %>
+    <%= render partial: "diaries/diary_list", locals: { diaries: @diaries } %>
+  </div>
 </div>

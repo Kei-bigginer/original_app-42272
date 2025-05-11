@@ -1,0 +1,113 @@
+/* ============================== */
+/* 🌱 notes#index 限定：世界観テーマ */
+/* ============================== */
+.notes.index {
+  /* 🍃 ページ全体のフォントをやわらかく */
+  font-family: 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+
+  /* 🧻 背景にふんわり紙感のテクスチャを追加 */
+  background-color: #fff7ec;
+  background-image: radial-gradient(circle at 1px 1px, #ece1d5 1px, transparent 0);
+  background-size: 18px 18px;
+
+  /* 🎯 投稿カード・要素にも明示的に適用 */
+  .note-card,
+  .note-wrapper,
+  .note-author,
+  .note-theme,
+  .note-content,
+  .note-date {
+    font-family: inherit; // ✅ ページのフォント設定を継承
+  }
+
+  /* 📌 投稿カードにピンで遊び心を演出 */
+  .note-card::before {
+    content: "📌";
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    font-size: 20px;
+    transform: rotate(-10deg); // 少し傾けて“メモ感”を出す
+  }
+
+  /* 💬 階段UI（吹き出し・段差） */
+  .note-wrapper {
+    display: flex;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  /* 🟣 左側（相手） */
+  .note-wrapper.left {
+    justify-content: flex-start;
+    padding-left: 24px;
+    margin-bottom: -6px; // 段差演出
+  }
+
+  /* 🟢 右側（自分） */
+  .note-wrapper.right {
+    justify-content: flex-end;
+    padding-right: 24px;
+    margin-top: 10px; // 段差演出
+  }
+
+  /* 📝 投稿カード本体 */
+  .note-card {
+    max-width: 70%;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    position: relative;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+  }
+
+  /* ☁️ ホバーでふわっと浮く */
+  .note-card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* 🟣 相手のカード色＋吹き出ししっぽ */
+  .note-wrapper.left .note-card {
+    background-color: #f0f0f0;
+  }
+
+  .note-wrapper.left .note-card::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: -12px;
+    border: 8px solid transparent;
+    border-right-color: #f0f0f0;
+  }
+
+  /* 🟢 自分のカード色＋吹き出ししっぽ */
+  .note-wrapper.right .note-card {
+    background-color: #d8f3dc;
+  }
+
+  .note-wrapper.right .note-card::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: -12px;
+    border: 8px solid transparent;
+    border-left-color: #d8f3dc;
+  }
+
+  /* 🧑‍🤝‍🧑 投稿者名のスタイル */
+  .note-author {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* 🌱 ニックネームの前に人アイコン */
+  .note-author::before {
+    content: "👤";
+  }
+}

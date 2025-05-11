@@ -1,12 +1,9 @@
 <!-- ============================== -->
-<!-- 🔰 ヘッダー・テーマ表示       -->
+<!-- 📝 今日のテーマ表示（シンプル＆誘導中心） -->
 <!-- ============================== -->
+<h2>📝 今日のテーマで、今の気持ちをポロっと 🌱</h2>
+<p><strong>テーマ：</strong> <%= @theme %></p>
 
-<h2>今日感じた小さな嬉しいことは？</h2>
-<p>例：今日の気づき、今日うれしかったこと、相手に伝えたいこと</p>
-
-<!-- 🎲 今日のテーマ（コントローラーでランダムにセットした @theme） -->
-<p><strong>今日のテーマ：</strong><%= @theme %></p>
 
 <!-- ============================== -->
 <!-- ⚠️ フラッシュメッセージ表示 -->
@@ -22,60 +19,60 @@
 <% end %>
 
 <!-- ============================== -->
-<!-- 📝 投稿フォーム（1日1投稿制限あり） -->
+<!-- 🌱 モーダル起動ボタン（テーマ直下・中央配置） -->
 <!-- ============================== -->
-<!-- 投稿済みチェックは一旦オフ -->
+<div class="text-center my-3">
+  <button type="button" class="btn-note-modal" data-bs-toggle="modal" data-bs-target="#noteModal">
+    🌱 今日のテーマ、ポロっと残す
+  </button>
+</div>
 
-<%# <% if current_user.notes.where(created_at: Time.zone.now.all_day).exists? %> %>
-  <!-- ✅ 投稿済み：注意メッセージ表示のみ -->
-  <div class="alert alert-info mt-3">
-    今日はすでに投稿済みです 😊 明日また投稿してね！
-  </div>
-<%# else %>
-  <!-- ✅ 投稿フォーム表示 -->
-  <%= form_with model: @note, local: true do |f| %>
-    <div class="form-group">
-      <!-- 投稿入力欄（140文字まで） -->
-      <%= f.text_area :content, placeholder: "ここに自由にひとことを書く", rows: 3, maxlength: 140, class: "form-control" %>
+<!-- ============================== -->
+<!-- 📦 モーダル本体（Bootstrap構造） -->
+<!-- ============================== -->
+<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <!-- 🧠 モーダルヘッダー -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="noteModalLabel">今日のひとこと</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div>
+
+      <!-- ✍️ モーダル本文（投稿フォーム） -->
+      <div class="modal-body">
+        <%= form_with model: @note, local: true do |f| %>
+          <div class="form-group">
+            <!-- 💬 投稿内容 -->
+            <%= f.text_area :content, placeholder: "ここに自由にひとことを書く", rows: 3, maxlength: 140, class: "form-control" %>
+          </div>
+
+          <!-- 🎲 ランダムテーマを非表示で送信 -->
+          <%= f.hidden_field :theme, value: @theme %>
+
+          <!-- 📨 投稿ボタン -->
+          <div class="mt-3">
+            <%= f.submit "投稿する", class: "btn btn-success w-100" %>
+          </div>
+        <% end %>
+
+        <!-- 📌 補足メッセージ -->
+        <p class="text-muted small mt-2 mb-0">※投稿は1日1回だけです</p>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- ✅ テーマも一緒に非表示で送信 -->
-    <%= f.hidden_field :theme, value: @theme %>
-
-    <!-- 投稿ボタン -->
-    <%= f.submit "投稿する", class: "btn btn-primary mt-2" %>
-  <%# end %>
-
-  <!-- 投稿ルール補足 -->
-  <p class="text-muted small mt-1">※投稿は1日1回だけです</p>
-<% end %>
-
-
-
+<!-- ✅ Turbo Streamがモーダルを閉じるスクリプトを挿入する場所 -->
+<div id="modal-script-placeholder"></div>
 
 <!-- ============================== -->
-<!-- 📃 投稿一覧表示 -->
+<!-- 📃 最近のひとこと投稿一覧 -->
 <!-- ============================== -->
-
-<hr>
-
 <h3>最近のひとこと投稿</h3>
 
-<% if @notes.empty? %>
-  <p class="text-muted">まだ投稿がありません。</p>
-<% else %>
-  <% @notes.each do |note| %>
-    <div class="note-card mb-3 p-2 border rounded">
-      <!-- 👤 投稿者の名前 -->
-      <p class="mb-1"><strong>👤 <%= note.user.nickname %></strong></p>
-
-      <!-- 💬 投稿テーマと本文 -->
-      <p class="mb-1">
-        💬 <strong><%= note.theme.presence || "テーマ未設定" %></strong>：「<%= note.content %>」
-      </p>
-
-      <!-- 🗓 投稿日 -->
-      <p class="text-muted small">📅 <%= note.created_at.strftime("%Y年%m月%d日") %></p>
-    </div>
-  <% end %>
-<% end %>
+<!-- ✅ Turbo Stream用：投稿リストを差し替えるためのターゲット -->
+<div id="note-list">
+  <%= render partial: "notes/note_list", locals: { notes: @notes } %>
+</div>

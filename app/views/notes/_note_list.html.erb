@@ -1,0 +1,28 @@
+<!-- ✅ 投稿一覧の表示（階段UI対応） -->
+<% if notes.empty? %>
+  <p class="text-muted">まだ投稿がありません。</p>
+<% else %>
+  <% notes.each do |note| %>
+    <% is_mine = note.user == current_user %>
+
+    <!-- 💬 階段状に配置するためのラップ -->
+    <div class="note-wrapper <%= is_mine ? 'right' : 'left' %>">
+
+      <!-- 📝 ひとこと投稿カード -->
+      <div class="note-card">
+        <!-- 👤 投稿者名 -->
+        <p class="note-author mb-1"><strong><%= note.user.nickname %></strong></p>
+
+        <!-- 💬 テーマ＋本文 -->
+        <p class="note-theme mb-1">
+          「<%= note.theme.presence || "テーマ未設定" %>」
+        </p>
+        <p class="note-content mb-2"><%= note.content %></p>
+
+        <!-- 📅 投稿日時 -->
+        <p class="note-date text-muted small">📅 <%= note.created_at.strftime("%Y年%m月%d日") %></p>
+      </div>
+
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<!-- ✅ 単一のnote表示（一覧と同じ構造） -->
+<div class="note-card mb-3 p-2 border rounded">
+  <p class="mb-1"><strong>👤 <%= note.user.nickname %></strong></p>
+  <p class="mb-1">
+    💬 <strong><%= note.theme.presence || "テーマ未設定" %></strong>：「<%= note.content %>」
+  </p>
+  <p class="text-muted small">📅 <%= note.created_at.strftime("%Y年%m月%d日") %></p>
+</div>
