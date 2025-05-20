@@ -328,3 +328,37 @@ label[for="birthday"] {
   border-color: #74c69d;
   color: #1b4332;
 }
+
+/* ============================== */
+/* 💬 トップページ専用スタイル   */
+/* ============================== */
+/* 💎 信頼ポイントカードを独立表示（構造分離後） */
+.trust-point-card-wrapper {
+  position: relative; // ← 必要なら absolute や margin に変えて位置調整もOK
+  margin-left: 20px;  // ← 画面左寄せ
+  margin-top: 40px;   // ← 上から適度に下げる
+}
+
+
+/* 📌 信頼ポイントカード本体（固定表示ではなくなったので absolute 解除） */
+.trust-point-card {
+  max-width: 260px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  border: 2px solid blue; // ← 📏 一時的に可視化したい場合のみ
+}
+
+/* ============================== */
+/* 🌿 投稿一覧（信頼カードとは別構造） */
+/* ============================== */
+.container-with-posts {
+  padding-top: 0; // ← 信頼カードを外に出したので余白不要
+}
+
+
+/* 左カラムの軽微な底上げ（必要あれば） */
+// .col-md-5 {
+//   /* margin-top: 20px; */ // ← 現在の配置で不要なら削除OK
+// }

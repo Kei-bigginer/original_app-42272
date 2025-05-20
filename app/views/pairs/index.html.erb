@@ -1,42 +1,36 @@
-<!-- 🌐 トップページ全体コンテナ -->
-<div class="container py-4" style="position: relative;">
+<!-- ============================== -->
+<!-- 💎 信頼ポイントカード（投稿コンテナ外に独立配置） -->
+<!-- ============================== -->
 
-  <!-- 👩‍❤️‍👨 ペア情報：ふたりの名前（左上に固定表示） -->
-  <%# ✅ ログインユーザーとパートナーの情報を取得 %>
-  <% pair_users = current_user.pair.users.to_a %>
-  <% partner = pair_users.reject { |u| u == current_user }.first %>
+<!-- 👩‍❤️‍👨 ペア情報：ふたりの名前（ヘッダーの外に固定配置） -->
+<%# ✅ ログインユーザーとパートナーの情報を取得 %>
+<% pair_users = current_user.pair.users.to_a %>
+<% partner = pair_users.reject { |u| u == current_user }.first %>
 
-  <!-- ✅ container の直下に absolute で配置することで、左上に固定される -->
-  <!-- 👤 ユーザー情報カード（名前＋信頼ポイント） -->
-  <div style="position: absolute; top: -10px; left: 10px; z-index: 999;">
-    <div class="bg-white px-3 py-2 rounded shadow-sm" style="max-width: 260px;">
-      <h6 class="mb-1 fw-bold"><%= "#{current_user.nickname} × #{partner.nickname}" %></h6>
-      <p class="text-muted small mb-1">ふたりの信頼を積み重ね中...</p>
-      <p class="text-success fw-semibold mb-0">💠 信頼ポイント：<%= @trust_points %> pt</p>
-    </div>
+<!-- ✅ 信頼カードを完全に独立表示（投稿コンテナの外） -->
+<div class="trust-point-card-wrapper">
+  <div class="trust-point-card">
+    <h6 class="mb-1 fw-bold"><%= "#{current_user.nickname} × #{partner.nickname}" %></h6>
+    <p class="text-muted small mb-1">ふたりの信頼を積み重ね中...</p>
+    <p class="text-success fw-semibold mb-0">💠 信頼ポイント：<%= @trust_points %> pt</p>
   </div>
+</div>
 
-<%# 各種操作ボタンは application.html.erb のヘッダーに統合したため削除しました %>
+<!-- ============================== -->
+<!-- 🌐 投稿系：トップページ全体コンテナ -->
+<!-- ============================== -->
+<div class="container container-with-posts py-4">
 
-  
-
-  <!-- ============================== -->
-  <!-- 🗨️ 今日のひとこと投稿へ誘導 -->
-  <!-- ============================== -->
-  <div class="mb-4">
-    <!-- 🔜 将来的にはSPA用アイコンからの誘導に切り替える予定（ここは削除候補） -->
-    <%= link_to "今日のひとことを投稿する", notes_path, class: "btn btn-note w-100" %>
-  </div>
+  <!-- 👈 最近の投稿の見出し（信頼カードとは完全に分離） -->
+  <h5 class="mt-3 ms-1">最近の投稿（あなた & パートナー）</h5>
 
   <!-- ============================== -->
   <!-- 📝 投稿一覧と画像スライダー（左右カラム） -->
   <!-- ============================== -->
-  <div class="row g-4 mb-4">
+  <div class="row g-4 mb-4 post-block-top">
 
     <!-- 👈 左：最近の投稿（あなた＋パートナー） -->
-    <div class="col-md-5">
-      <h5>最近の投稿（あなた & パートナー）</h5>
-
+    <div class="col-md-5 post-mt-adjust">
       <% @recent_notes.each do |note| %>
         <!-- 🎨 recent-noteクラスを card-ui に統一（角丸＋影＋余白） -->
         <div class="card-ui">
@@ -62,18 +56,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- ============================== -->
-  <!-- 🔗 各機能ページへの導線 -->
-  <!-- ============================== -->
-  <!-- 🔜 将来的にはSPA用ナビゲーションアイコンから遷移する予定（仮置き） -->
-  <div class="mb-4 d-grid gap-2">
-    <!-- 📷 日常部屋リンクに空色の専用ボタンを適用 -->
-    <%= link_to "日常部屋を見る", diaries_path, class: "btn btn-diary" %>
-
-    <!-- 💑 デート記録リンクにやさしいピンクのボタンを適用 -->
-    <%= link_to "デート記録を見る", moments_path, class: "btn btn-moment" %>
   </div>
 
   <!-- ============================== -->
