@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "@rails/ujs"         // ✅ Importmap用に読み込む
+import * as Rails from "@rails/ujs"  // ← `Rails` を明示的に定義
 
 Rails.start()               // ✅ Rails UJSを有効化する
 

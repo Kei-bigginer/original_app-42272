@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
 
   resources :pairs, only: [:index, :new, :create ] # ペア関連で使うルートを制限して定義（RESTfulに最小限）
+  
+  
   resources :notes, only: [:index, :new, :create ]   # 🗒 Note機能（投稿・表示だけでOK）
-
-
   resources :diaries, only: [:index, :new, :create ]
   resources :moments, only: [:index, :new, :create ]
 
