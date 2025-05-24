@@ -1,7 +1,8 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-// ✅ Rails UJS（リンクに method: :delete を効かせる）を読み込む
-import * as Rails from "@rails/ujs"
-Rails.start()
+
+// ✅ Rails UJS（method: :delete を動かす）の読み込み
+import Rails from "@rails/ujs"
+Rails.start() // ← ここで有効化！
 
 // ✅ Turbo（ページ遷移を速くするライブラリ）
 import "@hotwired/turbo-rails"
