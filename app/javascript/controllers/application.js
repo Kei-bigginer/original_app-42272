@@ -1,7 +1,3 @@
-// 🚀 RailsのUJS（DELETEなどのlink_toに必要）
-import Rails from "@rails/ujs"
-Rails.start()
-
 // ⚡ Turboリンクなど（Devise対応や画面遷移を速くする系）
 import "@hotwired/turbo-rails"
 

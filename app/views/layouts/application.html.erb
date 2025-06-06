@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- ✅ アプリケーションのCSS（SCSSで書いたスタイルもここに反映される） -->
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload', preload: false %>
 
     <!-- ✅ JavaScriptのモジュール読み込み（importmapによるJS管理） -->
     <%= javascript_importmap_tags %>
@@ -53,7 +53,9 @@
                 <%= link_to 'プロフィール編集', "#", class: "dropdown-item" %>
               </li>
               <li>
-                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？", turbo: false }, class: "dropdown-item" %>
+                <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo: false } }, class: "dropdown-item", data: { confirm: "ログアウトしますか？" } do %>
+                  ログアウト
+                <% end %>
               </li>
             </ul>
           </div>
