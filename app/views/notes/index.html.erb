@@ -1,8 +1,25 @@
 <!-- ============================== -->
-<!-- 📝 今日のテーマ表示（シンプル＆誘導中心） -->
+<!-- 📝 今日のテーマ表示 -->
 <!-- ============================== -->
 <h2>📝 今日のテーマで、今の気持ちをポロっと 🌱</h2>
-<p><strong>テーマ：</strong> <%= @theme %></p>
+
+<div class="theme-info-block mb-4">
+
+  <!-- 🎯 テーマ表示 -->
+  <p class="theme-line"><strong>テーマ：</strong> <%= @theme %></p>
+
+  <!-- 🔄 再抽選ボタン -->
+  <%= button_to '🌱 別のテーマにする？', notes_path, method: :get,
+      class: 'btn btn-outline-success btn-sm reroll-theme-button' %>
+
+  <!-- 🧠 注釈 -->
+  <p class="theme-note">※テーマは毎回ランダムで表示されます</p>
+
+</div>
+
+
+
+
 
 
 <!-- ============================== -->
